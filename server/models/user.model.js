@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Review"
     }]
-})
+}, {timestamps: true})
 
 const User = mongoose.model("User", UserSchema)
 module.exports = User

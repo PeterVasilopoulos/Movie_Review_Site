@@ -30,7 +30,7 @@ const MovieSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Review"
     }]
-})
+}, {timestamps: true})
 
 const Movie = mongoose.model("Movie", MovieSchema)
 module.exports = Movie
