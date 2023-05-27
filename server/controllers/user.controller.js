@@ -21,4 +21,4 @@ module.exports.oneUser = (req, res) => {
     User.findOne({_id: userId}).populate("reviews")
     .then(user => res.json({results: user}))
     .catch(err => res.json(err))
-}
+} 
