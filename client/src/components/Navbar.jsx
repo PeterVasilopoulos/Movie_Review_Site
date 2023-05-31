@@ -1,10 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
+    // Setup navigate variable
+    const navigate = useNavigate()
+
     // Search movie function
     const searchMovie = (e) => {
         e.preventDefault()
+    }
+
+    // My reviews button
+    const myReviews = (e) => {
+        e.preventDefault()
+
+        // Navigate to my reviews page
+        navigate('/')
     }
 
     // Logout button function
@@ -13,22 +24,31 @@ const Navbar = () => {
     }
 
     return (
-        <div id='navbar-block'>
-            {/* Title */}
-            <p id='navbar-title'>
-                Movie Reviews
-            </p>
+        <div className='section'>
+            {/* New Navbar */}
+            <div id="navbar" className='block-outline'>
 
-            {/* Search Bar */}
-            <form id='movie-search-form' onSubmit={searchMovie}>
-                <input type="text" placeholder='Search for a movie'/>
-                <button className='btn'>Search</button>
-            </form>
+                {/* Title */}
+                <div id='navbar-title' className='block-top'>
+                    <Link id='nt-text' to={'/'}>
+                        Movie Reviews
+                    </Link>
+                </div>
 
-            {/* Logout Button */}
-            <div id='navbar-buttons'>
-                <button className='btn'>My Reviews</button>
-                <button className='btn' onClick={logout}>Logout</button>
+                {/* Bottom Section */}
+                <div id='navbar-bottom'>
+                    {/* Search */}
+                    <form id='movie-search-form' onSubmit={searchMovie}>
+                        <input type="text" placeholder='Search for a movie or user' />
+                        <button className='btn'>Search</button>
+                    </form>
+
+                    {/* Login/Logout */}
+                    <div id='navbar-buttons'>
+                        <button className='btn' onClick={myReviews}>My Reviews</button>
+                        <button className='btn' onClick={logout}>Logout</button>
+                    </div>                </div>
+
             </div>
         </div>
     )
