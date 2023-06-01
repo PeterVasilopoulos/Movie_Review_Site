@@ -1,8 +1,69 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const DisplaySearch = () => {
+    // Movie Info From API
+    const [foundMovies, setFoundMovies] = useState([])
 
+    // Search Button
+    const [searchButton, setSearchButton] = useState(true)
+
+    // Search After Year Variable
+    const [searchAfterYear, setSearchAfterYear] = useState("1900")
+
+    // Search Filters Hashmap
+    const searchFilters = {
+        searchForMovie: true
+    }
+
+    // API Options
+    const options = {
+        method: 'GET',
+        url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/dune',
+        params: {
+            exact: 'false',
+            info: 'base_info',
+            startYear: searchAfterYear,
+            titleType: 'movie'
+        },
+        headers: {
+            'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
+            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        }
+    }
+
+    // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
+    // Use effect to get movie info
+    useEffect(() => {
+        axios.request(options)
+            .then((res) => {
+                // Log data
+                console.log("Movie Data:", res.data.results)
+                // Put data into foundMovies
+                setFoundMovies(res.data.results)
+            })
+            .catch((err) => {
+                // Log error if we get one
+                console.log("Movie API Error:", err)
+            })
+    }, [searchButton])
+
+    // Swap Search Button
+    const swapSearchButton = (e) => {
+        e.preventDefault()
+
+        setSearchButton(!searchButton)
+    }
+
+    // Change search to movie
+    const searchForMovie = () => {
+        searchFilters.searchForMovie = true
+    }
+    // Change search to 
+    const searchForUser = () => {
+        searchFilters.searchForMovie = false
+    }
 
     return (
         <div className='section'>
@@ -15,7 +76,29 @@ const DisplaySearch = () => {
 
                 {/* Filters */}
                 <div className='block-bottom'>
+                    {/* Movie/User Radio Input */}
+                    <div id='search-for-block' className='filter'>
+                        <p className='filter-name'>Search For:</p>
+                        {/* Movie Input */}
+                        <div className="filter-input">
+                            <input id='search-for-movie' type="radio" onSelect={searchForMovie} name='search-for' defaultChecked />
+                            <label htmlFor='search-for-movie'> Movie</label>
+                        </div>
+                        {/* User Input */}
+                        <div className="filter-input">
+                            <input id='search-for-user' type="radio" onSelect={searchForUser} name='search-for' />
+                            <label htmlFor='search-for-user'> User</label>
+                        </div>
+                    </div>
 
+                    {/* Release Year Filter */}
+                    <div id='release-year-block' className='filter'>
+                        <p className='filter-name'>Released By:</p>
+                        <input type="Number" className='filter-input' value={searchAfterYear} onChange={(e) => setSearchAfterYear(e.target.value)} />
+                    </div>
+
+                    {/* Search Button */}
+                    <button className='btn filter-btn' onClick={(e) => swapSearchButton(e)}>Search</button>
                 </div>
             </div>
 
@@ -28,96 +111,45 @@ const DisplaySearch = () => {
 
                 {/* Search Results */}
                 <div className='block-bottom'>
-                    
-                    {/* Movie Test */}
-                    <div className='movie-info'>
-                        {/* Poster */}
-                        <img className='movie-poster' src="https://cdn.shopify.com/s/files/1/0057/3728/3618/products/dunenew_631x.jpg?v=1646940429" alt="movie poster"/>
-                        <div>
-                            {/* Title */}
-                            <Link className='movie-title'>Dune</Link>
-                            {/* <p className='movie-title'>Dune</p> */}
-                            {/* Year, Length, Age Rating, Genre */}
-                            <p className='movie-details'>
-                                2021 <span>| </span> 
-                                2h 35m <span>| </span> 
-                                PG-13 <span>| </span> 
-                                Action, Adventure, Sci-Fi
-                            </p>
-                            {/* Score Rating, Director, Cast */}
-                            <p className='movie-details'>
-                                ⭐8.0 <span>| </span>
-                                Denis Villeneuve <span>| </span>
-                                Timothée Chalamet, Rebecca Ferguson, Zendaya
-                            </p>
-                            {/* Description */}
-                            <p className='movie-details movie-description'>
-                                A noble family becomes embroiled in a war for control over 
-                                the galaxy's most valuable asset while its heir becomes 
-                                troubled by visions of a dark future.
-                            </p>
-                        </div>
-                    </div>
 
-                    {/* Movie Test */}
-                    <div className='movie-info'>
-                        {/* Poster */}
-                        <img className='movie-poster' src="https://m.media-amazon.com/images/I/51kFHEgj59L._AC_.jpg" alt="movie poster"/>
-                        <div>
-                            {/* Title */}
-                            <Link className='movie-title'>Blade Runner 2049</Link>
-                            {/* Year, Length, Age Rating, Genre */}
-                            <p className='movie-details'>
-                                2017 <span>| </span> 
-                                2h 44m <span>| </span> 
-                                R <span>| </span> 
-                                Action, Mystery, Sci-Fi
-                            </p>
-                            {/* Score Rating, Director, Cast */}
-                            <p className='movie-details'>
-                                ⭐8.0 <span>| </span>
-                                Denis Villeneuve <span>| </span>
-                                Ryan Gosling, Harrison Ford, Ana de Armas
-                            </p>
-                            {/* Description */}
-                            <p className='movie-details movie-description'>
-                                Young Blade Runner K's discovery of a long-buried secret 
-                                leads him to track down former Blade Runner Rick Deckard, 
-                                who's been missing for thirty years.
-                                who's been missing for thirty years.
-                                who's been missing for thirty years.
-                            </p>
-                        </div>
-                    </div>
+                    {/* MAP THROUGH ALL MOVIES FOUND */}
+                    {
+                        foundMovies.map((movie, i) => {
+                            if (movie.meterRanking && movie.primaryImage) {
+                                return (
+                                    // Movie Info
+                                    <div className='movie-info' key={i}>
+                                        {/* Poster */}
+                                        <img className='movie-poster'
+                                            src={movie.primaryImage.url}
+                                            alt="movie poster"
+                                        />
+                                        <div>
+                                            {/* Title */}
+                                            <Link className='movie-title'>{movie.titleText.text}</Link>
+                                            {/* Year, Length, Age Rating, Genre */}
+                                            <p className='movie-details'>
+                                                {movie.releaseYear ? movie.releaseYear.year : "Unreleased"} <span>| </span>
+                                                {movie.runtime ? movie.runtime.seconds / 60 + "m" : "Uknown Runtime"} <span>| </span>
+                                                {movie.genres.genres[0] ? movie.genres.genres[0].id + ", " : false}
+                                                {movie.genres.genres[1] ? movie.genres.genres[1].id + ", " : false}
+                                                {movie.genres.genres[2] ? movie.genres.genres[2].id : "No Genres Available"}  <span>| </span>
+                                                {movie.ratingsSummary.aggregateRating ? "⭐" + movie.ratingsSummary.aggregateRating : "No Ratings"}
 
-                    {/* Movie Test */}
-                    <div className='movie-info'>
-                        {/* Poster */}
-                        <img className='movie-poster' src="https://m.media-amazon.com/images/I/51kFHEgj59L._AC_.jpg" alt="movie poster"/>
-                        <div>
-                            {/* Title */}
-                            <Link className='movie-title'>Blade Runner 2049</Link>
-                            {/* Year, Length, Age Rating, Genre */}
-                            <p className='movie-details'>
-                                2017 <span>| </span> 
-                                2h 44m <span>| </span> 
-                                R <span>| </span> 
-                                Action, Mystery, Sci-Fi
-                            </p>
-                            {/* Score Rating, Director, Cast */}
-                            <p className='movie-details'>
-                                ⭐8.0 <span>| </span>
-                                Denis Villeneuve <span>| </span>
-                                Ryan Gosling, Harrison Ford, Ana de Armas
-                            </p>
-                            {/* Description */}
-                            <p className='movie-details movie-description'>
-                                Young Blade Runner K's discovery of a long-buried secret 
-                                leads him to track down former Blade Runner Rick Deckard, 
-                                who's been missing for thirty years.
-                            </p>
-                        </div>
-                    </div>
+                                            </p>
+                                            {/* Score Rating, Director, Cast */}
+                                            <p className='movie-details'>
+                                            </p>
+                                            {/* Description */}
+                                            <p className='movie-details movie-description'>
+                                                {movie.plot ? movie.plot.plotText.plainText : false}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        })
+                    }
 
                 </div>
             </div>

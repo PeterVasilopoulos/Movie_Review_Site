@@ -1,14 +1,15 @@
+/* CSS Reset */
+
 * {
   margin: 0;
   padding: 0;
 }
 
+
+/* Page Background */
+
 body {
   background-color: rgb(98,146,146);
-}
-
-.App {
-  text-align: center;
 }
 
 
@@ -56,6 +57,27 @@ body {
 
 #display-filters {
   flex: 1;
+  font-size: 14px;
+}
+
+.filter {
+  margin-bottom: 10px;
+}
+
+.filter-name {
+  font-weight: bold;
+}
+
+.filter-input {
+  margin-left: 20px;
+}
+
+#release-year-block input {
+  width: 60px;
+}
+
+.search-for-radio input, label {
+  cursor: pointer;
 }
 
 #display-content {
@@ -100,6 +122,7 @@ body {
 
 .movie-details {
   font-size: 12px;
+  margin-top: 3px;
 }
 
 .movie-details span {
@@ -107,13 +130,12 @@ body {
 }
 
 .movie-description {
-  margin-top: 5px;
   font-size: 14px;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-    line-clamp: 2;
+  -webkit-line-clamp: 3;
+    line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -152,9 +174,14 @@ body {
   padding-left: 5px;
   text-align: left;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .block-bottom {
   padding: 7px;
   background-color: white;
+}
+
+.filter-btn {
+  font-size: 12px;
 }
