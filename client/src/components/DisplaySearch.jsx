@@ -6,6 +6,9 @@ const DisplaySearch = () => {
     // Movie Info From API
     const [foundMovies, setFoundMovies] = useState([])
 
+    // Movie Search Variable
+    const [movieSearch, setMovieSearch] = useState("")
+
     // Search Button
     const [searchButton, setSearchButton] = useState(true)
 
@@ -20,7 +23,7 @@ const DisplaySearch = () => {
     // API Options
     const options = {
         method: 'GET',
-        url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/dune',
+        url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
         params: {
             exact: 'false',
             info: 'base_info',
@@ -81,20 +84,44 @@ const DisplaySearch = () => {
                         <p className='filter-name'>Search For:</p>
                         {/* Movie Input */}
                         <div className="filter-input">
-                            <input id='search-for-movie' type="radio" onSelect={searchForMovie} name='search-for' defaultChecked />
+                            <input id='search-for-movie' 
+                                type="radio" 
+                                onSelect={searchForMovie} 
+                                name='search-for' 
+                                defaultChecked 
+                            />
                             <label htmlFor='search-for-movie'> Movie</label>
                         </div>
                         {/* User Input */}
                         <div className="filter-input">
-                            <input id='search-for-user' type="radio" onSelect={searchForUser} name='search-for' />
+                            <input id='search-for-user' 
+                                type="radio" 
+                                onSelect={searchForUser} 
+                                name='search-for' 
+                            />
                             <label htmlFor='search-for-user'> User</label>
                         </div>
+                    </div>
+
+                    {/* Movie Search Input */}
+                    <div>
+                        <p className='filter-name'>Movie  Title:</p>
+                        <input type="text" 
+                            className='filter-input' 
+                            value={movieSearch}
+                            // onChange={(e) => swapSearchButton(e)}
+                            onChange={(e) => setMovieSearch(e.target.value)}
+                        />
                     </div>
 
                     {/* Release Year Filter */}
                     <div id='release-year-block' className='filter'>
                         <p className='filter-name'>Released By:</p>
-                        <input type="Number" className='filter-input' value={searchAfterYear} onChange={(e) => setSearchAfterYear(e.target.value)} />
+                        <input type="Number" 
+                            className='filter-input' 
+                            value={searchAfterYear} 
+                            onChange={(e) => setSearchAfterYear(e.target.value)} 
+                        />
                     </div>
 
                     {/* Search Button */}
