@@ -15,12 +15,30 @@ const DisplaySearch = () => {
     // Search After Year Variable
     const [searchAfterYear, setSearchAfterYear] = useState("1900")
 
+    // Variable to check search has been clicked
+    const [checkSearch, setCheckSearch] = useState(false)
+    const [filmHeader, setFilmHeader] = useState("Top Box Office Movies")
+
     // Search Filters Hashmap
     const searchFilters = {
         searchForMovie: true
     }
 
-    // API Options
+    // Before Search API Map
+    const defaultSearch = {
+        method: 'GET',
+        url: 'https://moviesdatabase.p.rapidapi.com/titles',
+        params: {
+            list: 'top_boxoffice_200',
+            info: 'base_info'
+        },
+        headers: {
+            'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
+            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        }
+    }
+
+    // After Search API Map
     const options = {
         method: 'GET',
         url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
@@ -36,10 +54,29 @@ const DisplaySearch = () => {
         }
     }
 
+
+
     // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
     // Use effect to get movie info
     useEffect(() => {
-        axios.request(options)
+        if(checkSearch) {
+            // This will run if there has been a search
+            axios.request(options)
+            .then((res) => {
+                // Set film header variable to results
+                setFilmHeader("Results")
+                // Log data
+                console.log("Movie Data:", res.data.results)
+                // Put data into foundMovies
+                setFoundMovies(res.data.results)
+            })
+            .catch((err) => {
+                // Log error if we get one
+                console.log("Movie API Error:", err)
+            })
+        } else {
+            // This will run when the page loads
+            axios.request(defaultSearch)
             .then((res) => {
                 // Log data
                 console.log("Movie Data:", res.data.results)
@@ -50,12 +87,14 @@ const DisplaySearch = () => {
                 // Log error if we get one
                 console.log("Movie API Error:", err)
             })
+        }
     }, [searchButton])
 
     // Swap Search Button
     const swapSearchButton = (e) => {
         e.preventDefault()
 
+        setCheckSearch(true)
         setSearchButton(!searchButton)
     }
 
@@ -133,7 +172,7 @@ const DisplaySearch = () => {
             <div id='display-content' className='block-outline'>
                 {/* Title */}
                 <div className='block-top'>
-                    Results
+                    {filmHeader}
                 </div>
 
                 {/* Search Results */}
