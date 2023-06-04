@@ -38,61 +38,68 @@ const DisplaySearch = () => {
         }
     }
 
-    // After Search API Map
-    const options = {
-        method: 'GET',
-        url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
-        params: {
-            exact: 'false',
-            info: 'base_info',
-            startYear: searchAfterYear,
-            titleType: 'movie'
-        },
-        headers: {
-            'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
-            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-        }
-    }
-
-
 
     // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
     // Use effect to get movie info
     useEffect(() => {
-        if(checkSearch) {
-            // This will run if there has been a search
-            axios.request(options)
-            .then((res) => {
-                // Set film header variable to results
-                setFilmHeader("Results")
-                // Log data
-                console.log("Movie Data:", res.data.results)
-                // Put data into foundMovies
-                setFoundMovies(res.data.results)
-            })
-            .catch((err) => {
-                // Log error if we get one
-                console.log("Movie API Error:", err)
-            })
+        if (checkSearch) {
+            setFoundMovies([])
+
+            for (let i = 1; i < 4; i++) {
+
+                const options = {
+                    method: 'GET',
+                    url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
+                    params: {
+                        exact: 'false',
+                        info: 'base_info',
+                        startYear: searchAfterYear,
+                        titleType: 'movie',
+                        page: `${i}`
+                    },
+                    headers: {
+                        'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
+                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com' 
+                    }
+                }
+
+                axios.request(options)
+                    .then((res) => {
+                        // Set film header variable to results 
+                        setFilmHeader("Results")
+                        // Log data
+                        console.log(`Movie Data (page ${i}):`, res.data.results)
+                        // Put data into foundMovies
+                        setFoundMovies(foundMovies.concat(res.data.results))
+                        console.log("FOUND MOVIES RIGHT HERE", foundMovies)  
+                    })
+                    .catch((err) => {
+                        // Log error if we get one
+                        console.log(`Movie API Error (page ${i}):`, err)
+                    })
+            }
+            
         } else {
             // This will run when the page loads
             axios.request(defaultSearch)
-            .then((res) => {
-                // Log data
-                console.log("Movie Data:", res.data.results)
-                // Put data into foundMovies
-                setFoundMovies(res.data.results)
-            })
-            .catch((err) => {
-                // Log error if we get one
-                console.log("Movie API Error:", err)
-            })
+                .then((res) => {
+                    // Log data
+                    console.log("Movie Data:", res.data.results)
+                    // Put data into foundMovies
+                    setFoundMovies(res.data.results)
+                })
+                .catch((err) => {
+                    // Log error if we get one
+                    console.log("Movie API Error:", err)
+                })
         }
     }, [searchButton])
 
     // Swap Search Button
     const swapSearchButton = (e) => {
         e.preventDefault()
+
+        setFoundMovies([])
 
         setCheckSearch(true)
         setSearchButton(!searchButton)
@@ -105,6 +112,7 @@ const DisplaySearch = () => {
     // Change search to 
     const searchForUser = () => {
         searchFilters.searchForMovie = false
+        console.log(foundMovies)
     }
 
     return (
@@ -123,20 +131,20 @@ const DisplaySearch = () => {
                         <p className='filter-name'>Search For:</p>
                         {/* Movie Input */}
                         <div className="filter-input">
-                            <input id='search-for-movie' 
-                                type="radio" 
-                                onSelect={searchForMovie} 
-                                name='search-for' 
-                                defaultChecked 
+                            <input id='search-for-movie'
+                                type="radio"
+                                onSelect={searchForMovie}
+                                name='search-for'
+                                defaultChecked
                             />
                             <label htmlFor='search-for-movie'> Movie</label>
                         </div>
                         {/* User Input */}
                         <div className="filter-input">
-                            <input id='search-for-user' 
-                                type="radio" 
-                                onSelect={searchForUser} 
-                                name='search-for' 
+                            <input id='search-for-user'
+                                type="radio"
+                                onSelect={searchForUser}
+                                name='search-for'
                             />
                             <label htmlFor='search-for-user'> User</label>
                         </div>
@@ -145,8 +153,8 @@ const DisplaySearch = () => {
                     {/* Movie Search Input */}
                     <div>
                         <p className='filter-name'>Movie  Title:</p>
-                        <input type="text" 
-                            className='filter-input' 
+                        <input type="text"
+                            className='filter-input'
                             value={movieSearch}
                             // onChange={(e) => swapSearchButton(e)}
                             onChange={(e) => setMovieSearch(e.target.value)}
@@ -156,10 +164,10 @@ const DisplaySearch = () => {
                     {/* Release Year Filter */}
                     <div id='release-year-block' className='filter'>
                         <p className='filter-name'>Released By:</p>
-                        <input type="Number" 
-                            className='filter-input' 
-                            value={searchAfterYear} 
-                            onChange={(e) => setSearchAfterYear(e.target.value)} 
+                        <input type="Number"
+                            className='filter-input'
+                            value={searchAfterYear}
+                            onChange={(e) => setSearchAfterYear(e.target.value)}
                         />
                     </div>
 
