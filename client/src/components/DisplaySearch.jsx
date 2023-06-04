@@ -39,13 +39,14 @@ const DisplaySearch = () => {
     }
 
 
+    // ---------------------------------------------------------------------------------
     // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
     // Use effect to get movie info
     useEffect(() => {
         if (checkSearch) {
             setFoundMovies([])
 
-            for (let i = 1; i < 4; i++) {
+            for (let i = 1; i < 2; i++) {
 
                 const options = {
                     method: 'GET',
@@ -59,7 +60,7 @@ const DisplaySearch = () => {
                     },
                     headers: {
                         'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
-                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com' 
+                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
                     }
                 }
 
@@ -71,14 +72,14 @@ const DisplaySearch = () => {
                         console.log(`Movie Data (page ${i}):`, res.data.results)
                         // Put data into foundMovies
                         setFoundMovies(foundMovies.concat(res.data.results))
-                        console.log("FOUND MOVIES RIGHT HERE", foundMovies)  
+                        console.log("FOUND MOVIES RIGHT HERE", foundMovies)
                     })
                     .catch((err) => {
                         // Log error if we get one
                         console.log(`Movie API Error (page ${i}):`, err)
                     })
             }
-            
+
         } else {
             // This will run when the page loads
             axios.request(defaultSearch)
@@ -94,6 +95,8 @@ const DisplaySearch = () => {
                 })
         }
     }, [searchButton])
+    // ---------------------------------------------------------------------------------
+
 
     // Swap Search Button
     const swapSearchButton = (e) => {
@@ -200,7 +203,9 @@ const DisplaySearch = () => {
                                         />
                                         <div>
                                             {/* Title */}
-                                            <Link className='movie-title'>{movie.titleText.text}</Link>
+                                            <Link className='movie-title' to={`/movies/${movie.id}`}>
+                                                {movie.titleText.text}
+                                            </Link>
                                             {/* Year, Length, Age Rating, Genre */}
                                             <p className='movie-details'>
                                                 {movie.releaseYear ? movie.releaseYear.year : "Unreleased"} <span>| </span>
