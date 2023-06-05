@@ -38,62 +38,78 @@ const DisplaySearch = () => {
         }
     }
 
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDM1ZTU0OWJhN2U1YWRkMDk3NmIxZTczNWFjYzI1NCIsInN1YiI6IjY0NDI5ZjgxY2VlMmY2MDRmMzM2MTcyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qCl7J57Cmn2rKIqWdB6mWasWruaAUU3EqO4Iphbgr58'
+        }
+    }
+
 
     // ---------------------------------------------------------------------------------
     // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
     // Use effect to get movie info
     useEffect(() => {
-        if (checkSearch) {
-            setFoundMovies([])
+        axios.get('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+            .then((res) => {
+                console.log("Success!", res)
+            })
+            .catch((err) => {
+                console.log("Failure!", err)
+            })
 
-            for (let i = 1; i < 2; i++) {
+        // if (checkSearch) {
 
-                const options = {
-                    method: 'GET',
-                    url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
-                    params: {
-                        exact: 'false',
-                        info: 'base_info',
-                        startYear: searchAfterYear,
-                        titleType: 'movie',
-                        page: `${i}`
-                    },
-                    headers: {
-                        'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
-                        'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-                    }
-                }
 
-                axios.request(options)
-                    .then((res) => {
-                        // Set film header variable to results 
-                        setFilmHeader("Results")
-                        // Log data
-                        console.log(`Movie Data (page ${i}):`, res.data.results)
-                        // Put data into foundMovies
-                        setFoundMovies(foundMovies.concat(res.data.results))
-                        console.log("FOUND MOVIES RIGHT HERE", foundMovies)
-                    })
-                    .catch((err) => {
-                        // Log error if we get one
-                        console.log(`Movie API Error (page ${i}):`, err)
-                    })
-            }
+        //     for (let i = 1; i < 2; i++) {
 
-        } else {
-            // This will run when the page loads
-            axios.request(defaultSearch)
-                .then((res) => {
-                    // Log data
-                    console.log("Movie Data:", res.data.results)
-                    // Put data into foundMovies
-                    setFoundMovies(res.data.results)
-                })
-                .catch((err) => {
-                    // Log error if we get one
-                    console.log("Movie API Error:", err)
-                })
-        }
+        //         const options = {
+        //             method: 'GET',
+        //             url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
+        //             params: {
+        //                 exact: 'false',
+        //                 info: 'base_info',
+        //                 startYear: searchAfterYear,
+        //                 titleType: 'movie',
+        //                 page: `${i}`
+        //             },
+        //             headers: {
+        //                 'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
+        //                 'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+        //             }
+        //         }
+
+        //         axios.request(options)
+        //             .then((res) => {
+        //                 // Set film header variable to results 
+        //                 setFilmHeader("Results")
+        //                 // Log data
+        //                 console.log(`Movie Data (page ${i}):`, res.data.results)
+        //                 // Put data into foundMovies
+        //                 setFoundMovies(foundMovies.concat(res.data.results))
+        //                 console.log("FOUND MOVIES RIGHT HERE", foundMovies)
+        //             })
+        //             .catch((err) => {
+        //                 // Log error if we get one
+        //                 console.log(`Movie API Error (page ${i}):`, err)
+        //             })
+        //     }
+
+        // } else {
+        //     // This will run when the page loads
+        //     axios.request(defaultSearch)
+        //         .then((res) => {
+        //             // Log data
+        //             console.log("Movie Data:", res.data.results)
+        //             // Put data into foundMovies
+        //             setFoundMovies(res.data.results)
+        //         })
+        //         .catch((err) => {
+        //             // Log error if we get one
+        //             console.log("Movie API Error:", err)
+        //         })
+        // }
     }, [searchButton])
     // ---------------------------------------------------------------------------------
 

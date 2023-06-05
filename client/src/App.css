@@ -53,7 +53,7 @@ body {
 }
 
 
-/* Display Search */
+/* Display Search Page */
 
 #display-filters {
   flex: 1;
@@ -84,8 +84,14 @@ body {
   flex: 4;
 }
 
+/* Movie Details Page */
 
-/* Movie Details */
+#details-block {
+  flex: 1;
+}
+
+
+/* Movie Info */
 
 .movie-info {
   display: flex;
