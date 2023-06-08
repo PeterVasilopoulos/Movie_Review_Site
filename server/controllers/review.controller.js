@@ -30,9 +30,10 @@ module.exports.createReview = (req, res) => {
 
 // Get All Reviews
 module.exports.allReviews = (req, res) => {
-    Review.find()
-    .then(allReviews => res.json({results: allReviews}))
-    .catch(err => res.json(err))
+    return res.json("Im working")
+    // Review.find()
+    // .then(allReviews => res.json({results: allReviews}))
+    // .catch(err => res.json(err))
 }
 
 // Get One Review

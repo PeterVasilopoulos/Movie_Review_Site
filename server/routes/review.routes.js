@@ -1,26 +1,31 @@
+const express = require('express')
+
 const ReviewController = require("../controllers/review.controller")
 
-module.exports = (app) => {
-    // Create review
-    app.post("/api/reviews/new/:userId/:movieId", ReviewController.createReview)
+const reviewRoutes = express.Router()
 
-    // Get all reviews
-    app.get("/api/reviews", ReviewController.allReviews)
+// Create review
+reviewRoutes.post("/new/:userId/:movieId", ReviewController.createReview)
 
-    // Get one review
-    app.get("/api/reviews/:id", ReviewController.oneReview)
+// Get all reviews
+reviewRoutes.get("/", ReviewController.allReviews)
 
-    // Update Review
-    app.put("/api/reviews/update/:id", ReviewController.updateReview)
+// Get one review
+reviewRoutes.get("/:id", ReviewController.oneReview)
 
-    // Delete Review
-    app.delete("/api/reviews/delete/:id", ReviewController.deleteReview)
+// Update Review
+reviewRoutes.put("/update/:id", ReviewController.updateReview)
+
+// Delete Review
+reviewRoutes.delete("/delete/:id", ReviewController.deleteReview)
 
 
 
-    // Get All Reviews By Movie ID
-    app.get("/api/reviews/movie/:movieId", ReviewController.allReviewsByMovie)
+// Get All Reviews By Movie ID
+reviewRoutes.get("/movie/:movieId", ReviewController.allReviewsByMovie)
 
-    // Get All Reviews by User ID
-    app.get("/api/reviews/user/:userId", ReviewController.allReviewsByUser)
-}
+// Get All Reviews by User ID
+reviewRoutes.get("/user/:userId", ReviewController.allReviewsByUser)
+
+
+module.exports = { reviewRoutes }

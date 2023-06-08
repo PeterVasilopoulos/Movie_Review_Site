@@ -12,8 +12,11 @@ app.use(cors())
 
 require("./configs/mongoose.config")
 
-const Routes = require("./routes/review.routes")
-Routes(app)
+const { userRoutes } = require('./routes/user.routes')
+const { movieRoutes } = require('./routes/movie.routes')
+const { reviewRoutes } = require('./routes/review.routes')
+
+app.use('/api/reviews', reviewRoutes)
 
 app.listen(port, () => console.log("Port connection established on port", port))
 
