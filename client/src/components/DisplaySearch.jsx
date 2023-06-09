@@ -33,7 +33,7 @@ const DisplaySearch = () => {
             info: 'base_info'
         },
         headers: {
-            'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
+            'X-RapidAPI-Key': process.env.REACT_API_KEY,
             'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
         }
     }
@@ -51,68 +51,24 @@ const DisplaySearch = () => {
     // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
     // Use effect to get movie info
     useEffect(() => {
-        axios.get('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+        let promises = []
+        for (let i = 1; i < 4; i++) {
+            // Gets popular movies on page load
+            promises.push(axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${i}`, options))
+        }
+        Promise.all(promises)
             .then((res) => {
-                console.log("Success!", res)
+                console.log("Success!", res[0].data.results)
+                setFoundMovies([...res[0].data.results, ...res[1].data.results, ...res[2].data.results,])
             })
             .catch((err) => {
                 console.log("Failure!", err)
             })
 
-        // if (checkSearch) {
-
-
-        //     for (let i = 1; i < 2; i++) {
-
-        //         const options = {
-        //             method: 'GET',
-        //             url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieSearch}`,
-        //             params: {
-        //                 exact: 'false',
-        //                 info: 'base_info',
-        //                 startYear: searchAfterYear,
-        //                 titleType: 'movie',
-        //                 page: `${i}`
-        //             },
-        //             headers: {
-        //                 'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
-        //                 'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-        //             }
-        //         }
-
-        //         axios.request(options)
-        //             .then((res) => {
-        //                 // Set film header variable to results 
-        //                 setFilmHeader("Results")
-        //                 // Log data
-        //                 console.log(`Movie Data (page ${i}):`, res.data.results)
-        //                 // Put data into foundMovies
-        //                 setFoundMovies(foundMovies.concat(res.data.results))
-        //                 console.log("FOUND MOVIES RIGHT HERE", foundMovies)
-        //             })
-        //             .catch((err) => {
-        //                 // Log error if we get one
-        //                 console.log(`Movie API Error (page ${i}):`, err)
-        //             })
-        //     }
-
-        // } else {
-        //     // This will run when the page loads
-        //     axios.request(defaultSearch)
-        //         .then((res) => {
-        //             // Log data
-        //             console.log("Movie Data:", res.data.results)
-        //             // Put data into foundMovies
-        //             setFoundMovies(res.data.results)
-        //         })
-        //         .catch((err) => {
-        //             // Log error if we get one
-        //             console.log("Movie API Error:", err)
-        //         })
-        // }
     }, [searchButton])
     // ---------------------------------------------------------------------------------
 
+    console.log(foundMovies)
 
     // Swap Search Button
     const swapSearchButton = (e) => {
@@ -208,28 +164,28 @@ const DisplaySearch = () => {
                     {/* MAP THROUGH ALL MOVIES FOUND */}
                     {
                         foundMovies.map((movie, i) => {
-                            if (movie.meterRanking && movie.primaryImage) {
+                            if (true) {
                                 return (
                                     // Movie Info
                                     <div className='movie-info' key={i}>
                                         {/* Poster */}
                                         <img className='movie-poster'
-                                            src={movie.primaryImage.url}
+                                            src={`https://image.tmdb.org/t/p/w1280${movie.poster_path}`}
                                             alt="movie poster"
                                         />
                                         <div>
                                             {/* Title */}
                                             <Link className='movie-title' to={`/movies/${movie.id}`}>
-                                                {movie.titleText.text}
+                                                {movie.title}
                                             </Link>
                                             {/* Year, Length, Age Rating, Genre */}
                                             <p className='movie-details'>
-                                                {movie.releaseYear ? movie.releaseYear.year : "Unreleased"} <span>| </span>
-                                                {movie.runtime ? movie.runtime.seconds / 60 + "m" : "Uknown Runtime"} <span>| </span>
+                                                {movie.release_date ? movie.release_date.slice(0, 4) : "Unreleased"} <span>| </span>
+                                                {/* {movie.runtime ? movie.runtime.seconds / 60 + "m" : "Uknown Runtime"} <span>| </span>
                                                 {movie.genres.genres[0] ? movie.genres.genres[0].id + ", " : false}
                                                 {movie.genres.genres[1] ? movie.genres.genres[1].id + ", " : false}
                                                 {movie.genres.genres[2] ? movie.genres.genres[2].id : "No Genres Available"}  <span>| </span>
-                                                {movie.ratingsSummary.aggregateRating ? "⭐" + movie.ratingsSummary.aggregateRating : "No Ratings"}
+                                                {movie.ratingsSummary.aggregateRating ? "⭐" + movie.ratingsSummary.aggregateRating : "No Ratings"} */}
 
                                             </p>
                                             {/* Score Rating, Director, Cast */}
@@ -237,7 +193,7 @@ const DisplaySearch = () => {
                                             </p>
                                             {/* Description */}
                                             <p className='movie-details movie-description'>
-                                                {movie.plot ? movie.plot.plotText.plainText : false}
+                                                {/* {movie.plot ? movie.plot.plotText.plainText : false} */}
                                             </p>
                                         </div>
                                     </div>
