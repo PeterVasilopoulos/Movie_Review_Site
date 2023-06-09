@@ -17,27 +17,14 @@ const DisplaySearch = () => {
 
     // Variable to check search has been clicked
     const [checkSearch, setCheckSearch] = useState(false)
-    const [filmHeader, setFilmHeader] = useState("Top Box Office Movies")
+    const [filmHeader, setFilmHeader] = useState("Popular Movies")
 
     // Search Filters Hashmap
     const searchFilters = {
         searchForMovie: true
     }
 
-    // Before Search API Map
-    const defaultSearch = {
-        method: 'GET',
-        url: 'https://moviesdatabase.p.rapidapi.com/titles',
-        params: {
-            list: 'top_boxoffice_200',
-            info: 'base_info'
-        },
-        headers: {
-            'X-RapidAPI-Key': process.env.REACT_API_KEY,
-            'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-        }
-    }
-
+    // Options variable for api
     const options = {
         method: 'GET',
         headers: {
@@ -46,24 +33,50 @@ const DisplaySearch = () => {
         }
     }
 
+    const optionsDefault = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: process.env.REACT_API_AUTH
+        }
+    }
+
 
     // ---------------------------------------------------------------------------------
     // ADD IF STATEMENT INSIDE OF USEEFFECT TO CHECK IF USER WANTS TO SEARCH FOR A MOVIE OR A USER
     // Use effect to get movie info
     useEffect(() => {
-        let promises = []
-        for (let i = 1; i < 4; i++) {
+        if (checkSearch) {
+            // Gets movies based on user's search
+            let promises = []
+            for (let i = 1; i < 4; i++) {
+                promises.push(axios.get(`https://api.themoviedb.org/3/search/movie?query=${movieSearch}&include_adult=false&language=en-US&page=${i}`, options))
+            }
+            Promise.all(promises)
+                .then((res) => {
+                    // Put the found movies in the the correct variable
+                    setFoundMovies([...res[0].data.results, ...res[1].data.results, ...res[2].data.results])
+                })
+                .catch((err) => {
+                    // Log error if we get one
+                    console.log("Failure!", err)
+                })
+        } else {
             // Gets popular movies on page load
-            promises.push(axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${i}`, options))
+            let promises = []
+            for (let i = 1; i < 4; i++) {
+                promises.push(axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${i}`, optionsDefault))
+            }
+            Promise.all(promises)
+                .then((res) => {
+                    // Put the found movies in the the correct variable
+                    setFoundMovies([...res[0].data.results, ...res[1].data.results, ...res[2].data.results])
+                })
+                .catch((err) => {
+                    // Log error if we get one
+                    console.log("Failure!", err)
+                })
         }
-        Promise.all(promises)
-            .then((res) => {
-                console.log("Success!", res[0].data.results)
-                setFoundMovies([...res[0].data.results, ...res[1].data.results, ...res[2].data.results,])
-            })
-            .catch((err) => {
-                console.log("Failure!", err)
-            })
 
     }, [searchButton])
     // ---------------------------------------------------------------------------------
@@ -75,6 +88,8 @@ const DisplaySearch = () => {
         e.preventDefault()
 
         setFoundMovies([])
+
+        setFilmHeader("Search Results")
 
         setCheckSearch(true)
         setSearchButton(!searchButton)
@@ -90,6 +105,8 @@ const DisplaySearch = () => {
         console.log(foundMovies)
     }
 
+    // ---------------------------------------------------
+    // RETURN
     return (
         <div className='section'>
             {/* Filters (Left) */}
@@ -161,31 +178,33 @@ const DisplaySearch = () => {
                 {/* Search Results */}
                 <div className='block-bottom'>
 
-                    {/* MAP THROUGH ALL MOVIES FOUND */}
+                    {/* ------------------------------------------------------------ */}
+                    {/* MAP THROUGH ALL FOUND MOVIES */}
                     {
                         foundMovies.map((movie, i) => {
-                            if (true) {
+                            if (movie.vote_count > 100) {
                                 return (
                                     // Movie Info
                                     <div className='movie-info' key={i}>
                                         {/* Poster */}
                                         <img className='movie-poster'
-                                            src={`https://image.tmdb.org/t/p/w1280${movie.poster_path}`}
+                                            src={movie.poster_path ? `https://image.tmdb.org/t/p/w1280${movie.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
                                             alt="movie poster"
                                         />
                                         <div>
                                             {/* Title */}
                                             <Link className='movie-title' to={`/movies/${movie.id}`}>
-                                                {movie.title}
+                                                {movie.title ? movie.title : false}
                                             </Link>
                                             {/* Year, Length, Age Rating, Genre */}
                                             <p className='movie-details'>
                                                 {movie.release_date ? movie.release_date.slice(0, 4) : "Unreleased"} <span>| </span>
+
                                                 {/* {movie.runtime ? movie.runtime.seconds / 60 + "m" : "Uknown Runtime"} <span>| </span>
                                                 {movie.genres.genres[0] ? movie.genres.genres[0].id + ", " : false}
                                                 {movie.genres.genres[1] ? movie.genres.genres[1].id + ", " : false}
-                                                {movie.genres.genres[2] ? movie.genres.genres[2].id : "No Genres Available"}  <span>| </span>
-                                                {movie.ratingsSummary.aggregateRating ? "⭐" + movie.ratingsSummary.aggregateRating : "No Ratings"} */}
+                                                {movie.genres.genres[2] ? movie.genres.genres[2].id : "No Genres Available"}  <span>| </span> */}
+                                                {movie.vote_average ? "⭐" + movie.vote_average.toFixed(1) : "No Ratings"}
 
                                             </p>
                                             {/* Score Rating, Director, Cast */}
@@ -193,7 +212,7 @@ const DisplaySearch = () => {
                                             </p>
                                             {/* Description */}
                                             <p className='movie-details movie-description'>
-                                                {/* {movie.plot ? movie.plot.plotText.plainText : false} */}
+                                                {movie.overview ? movie.overview : false}
                                             </p>
                                         </div>
                                     </div>
