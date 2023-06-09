@@ -6,37 +6,40 @@ const MovieDetails = () => {
     // Get movie id from params
     const { id } = useParams()
 
-    // UseState variables to hold all the movie info
-    const [rating, setRating] = useState("")
-    const [voteCount, setVoteCount] = useState("")
-    const [poster, setPoster] = useState("")
-    const [title, setTitle] = useState("")
-    const [genres, setGenres] = useState([])
-    const [releaseDate, setReleaseDate] = useState("")
-    const [runtime, setRuntime] = useState("")
-    const [plot, setPlot] = useState("")
+    // Variable to hold the movie data
+    const [movieData, setMovieData] = useState({})
+    const [movieCast, setMovieCast] = useState([])
+    const [movieCrew, setMovieCrew] = useState({})
 
-    const [director, setDirector] = useState("")
-
-    // Variables to hold the "info" options for api call
-    const base = "base_info"
-    const creators = "creators_directors_writers"
-    const cast = "extendedCast"
+    // Options variable for the api
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDM1ZTU0OWJhN2U1YWRkMDk3NmIxZTczNWFjYzI1NCIsInN1YiI6IjY0NDI5ZjgxY2VlMmY2MDRmMzM2MTcyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qCl7J57Cmn2rKIqWdB6mWasWruaAUU3EqO4Iphbgr58'
+        }
+    }
 
     // Use Effect to get movie data
     useEffect(() => {
-        const options = {
-            method: 'GET',
-            url: `https://moviesdatabase.p.rapidapi.com/titles/${id}`,
-            params: { info: 'base_info' },
-            headers: {
-                'X-RapidAPI-Key': '18ae27c303mshbe6e99c6691e31fp1814f0jsne60650dd7757',
-                'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-            }
-        }
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits&language=en-US`, options)
+        .then((res) => {
+            // Log the data
+            console.log("Movie Data: ", res.data.credits.crew)
+            setMovieData(res.data)
+            setMovieCast(res.data.credits.cast)
+            setMovieCrew(res.data.credits.crew)
 
-        axios.request()
-    })
+            const test = movieCrew.filter(person => person.job == "Director")
+            console.log(test)
+        })
+        .catch((err) => {
+            // Log the error if we get one
+            console.log("Move Data Error: ", err)
+        })
+    }, [])
+
+    
 
     return (
         <div className='section'>
@@ -48,7 +51,18 @@ const MovieDetails = () => {
 
                 {/* Bottom Block */}
                 <div className='block-bottom'>
-
+                    {
+                        
+                        
+                        movieCrew.filter(person => person.job === "Director").map((movie, i) => {
+                            return (
+                                movie.name
+                            )
+                        })
+                        
+                        
+                        
+                    }
                 </div>
             </div>
         </div>
