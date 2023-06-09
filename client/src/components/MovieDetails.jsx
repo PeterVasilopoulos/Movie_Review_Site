@@ -9,7 +9,38 @@ const MovieDetails = () => {
     // Variable to hold the movie data
     const [movieData, setMovieData] = useState({})
     const [movieCast, setMovieCast] = useState([])
-    const [movieCrew, setMovieCrew] = useState({})
+    const [movieCrew, setMovieCrew] = useState([])
+
+    // Release Year Variable
+    const releaseYear = movieData.release_date.slice(0, 4)
+
+    // Directors Variable
+    const directors = movieCrew.filter(person => person.job === "Director").map((director, i) => {
+        return (
+            director.name
+        )
+    })
+
+    // Writers Variable
+    const writers = movieCrew.filter(person => person.job === "Writer").map((writer, i) => {
+        return (
+            writer.name
+        )
+    })
+
+    // Editors Variable
+    const editors = movieCrew.filter(person => person.job === "Editor").map((editor, i) => {
+        return (
+            editor.name
+        )
+    })
+
+    // Directors of Photography Variable
+    const dops = movieCrew.filter(person => person.job === "Director of Photography"). map((dop, i) => {
+        return (
+            dop.name
+        )
+    })
 
     // Options variable for the api
     const options = {
@@ -23,23 +54,21 @@ const MovieDetails = () => {
     // Use Effect to get movie data
     useEffect(() => {
         axios.get(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits&language=en-US`, options)
-        .then((res) => {
-            // Log the data
-            console.log("Movie Data: ", res.data.credits.crew)
-            setMovieData(res.data)
-            setMovieCast(res.data.credits.cast)
-            setMovieCrew(res.data.credits.crew)
-
-            const test = movieCrew.filter(person => person.job == "Director")
-            console.log(test)
-        })
-        .catch((err) => {
-            // Log the error if we get one
-            console.log("Move Data Error: ", err)
-        })
+            .then((res) => {
+                // Log the data
+                console.log("Movie Data: ", res.data)
+                setMovieData(res.data)
+                setMovieCast(res.data.credits.cast.slice(0, 10))
+                setMovieCrew(res.data.credits.crew)
+                console.log(movieCast)
+            })
+            .catch((err) => {
+                // Log the error if we get one
+                console.log("Move Data Error: ", err)
+            })
     }, [])
 
-    
+
 
     return (
         <div className='section'>
@@ -50,19 +79,29 @@ const MovieDetails = () => {
                 </div>
 
                 {/* Bottom Block */}
-                <div className='block-bottom'>
-                    {
-                        
-                        
-                        movieCrew.filter(person => person.job === "Director").map((movie, i) => {
-                            return (
-                                movie.name
-                            )
-                        })
-                        
-                        
-                        
-                    }
+                <div id='md-details' className='block-bottom'> 
+                    {/* Movie Poster */}
+                    <img 
+                    src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
+                    alt="Movie poster" />
+
+                    {/* Movie Details */}
+                    <div>
+                        {/* Title and Release Year */}
+                        <h1 className='md-title'>
+                            {movieData.title} <span className='md-span'>({releaseYear})</span>
+                        </h1>
+                    </div>
+
+                    <p>
+                        {/* {
+                            writers.map((w, i) => {
+                                return (
+                                    <p>{w}</p>
+                                )
+                            })
+                        } */}
+                    </p>
                 </div>
             </div>
         </div>
