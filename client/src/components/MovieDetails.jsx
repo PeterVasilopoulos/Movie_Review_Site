@@ -9,7 +9,7 @@ const MovieDetails = () => {
     // Variable to hold the movie data
     const [movieData, setMovieData] = useState({})
     const [movieCast, setMovieCast] = useState([])
-    const [movieCrew, setMovieCrew] = useState([])
+    const [movieCrew, setMovieCrew] = useState([]) 
 
     // Release Year Variable
     const releaseYear = movieData.release_date.slice(0, 4)
