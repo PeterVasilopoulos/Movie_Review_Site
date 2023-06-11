@@ -5,9 +5,12 @@ const Navbar = () => {
     // Setup navigate variable
     const navigate = useNavigate()
 
-    // Search movie function
-    const searchMovie = (e) => {
+    // Movie Search Button
+    const movieSearch = (e) => {
         e.preventDefault()
+
+        // Navigate to movie search page
+        navigate('/movies')
     }
 
     // My reviews button
@@ -37,11 +40,10 @@ const Navbar = () => {
 
                 {/* Bottom Section */}
                 <div id='navbar-bottom'>
-                    {/* Search */}
-                    <form id='movie-search-form' onSubmit={searchMovie}>
-                        <input type="text" placeholder='Search for a movie or user' />
-                        <button className='btn'>Search</button>
-                    </form>
+                    {/* Movie Search Button */}
+                    <div>
+                        <button className='btn' onClick={movieSearch}>Movies</button>
+                    </div>
 
                     {/* Login/Logout */}
                     <div id='navbar-buttons'>

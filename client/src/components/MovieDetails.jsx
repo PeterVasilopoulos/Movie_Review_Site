@@ -70,7 +70,7 @@ const MovieDetails = () => {
                 // Set movie data variable
                 setMovieData(res.data)
                 // Set movie cast variable (first 10 cast members)
-                setMovieCast(res.data.credits.cast.slice(0, 10))
+                setMovieCast(res.data.credits.cast[15] ? res.data.credits.cast.slice(0, 16) : res.data.credits.cast)
                 // Set movie crew variable
                 setMovieCrew(res.data.credits.crew)
                 // Log the cast
@@ -244,7 +244,7 @@ const MovieDetails = () => {
                                                 <div className='md-cast-member'>
                                                     {/* Actor Photo */}
                                                     <img
-                                                        src={`https://image.tmdb.org/t/p/w1280${actor.profile_path}`}
+                                                        src={actor.profile_path ? `https://image.tmdb.org/t/p/w1280${actor.profile_path}` : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}
                                                         alt="Actor photo"
                                                         className='md-cast-photo' />
                                                     {/* Character Name and Actor Name */}
