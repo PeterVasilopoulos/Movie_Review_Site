@@ -14,31 +14,35 @@ const MovieDetails = () => {
     // Release Year Variable
     const [releaseYear, setReleaseYear] = useState(2000)
 
+    // Genres Variable
+    const [genres, setGenres] = useState([])
+
     // Directors Variable
     const directors = movieCrew.filter(person => person.job === "Director").map((director, i) => {
         return (
-            director.name
+            director
         )
     })
+    console.log(directors)
 
     // Writers Variable
-    const writers = movieCrew.filter(person => person.job === "Writer").map((writer, i) => {
+    const writers = movieCrew.filter(person => person.job === "Writer" || person.job === "Screenplay").map((writer, i) => {
         return (
-            writer.name
+            writer
         )
     })
 
     // Editors Variable
     const editors = movieCrew.filter(person => person.job === "Editor").map((editor, i) => {
         return (
-            editor.name
+            editor
         )
     })
 
     // Directors of Photography Variable
     const dops = movieCrew.filter(person => person.job === "Director of Photography"). map((dop, i) => {
         return (
-            dop.name
+            dop
         )
     })
 
@@ -57,11 +61,18 @@ const MovieDetails = () => {
             .then((res) => {
                 // Log the data
                 console.log("Movie Data: ", res.data)
+                // Set movie data variable
                 setMovieData(res.data)
+                // Set movie cast variable (first 10 cast members)
                 setMovieCast(res.data.credits.cast.slice(0, 10))
+                // Set movie crew variable
                 setMovieCrew(res.data.credits.crew)
+                // Log the cast
                 console.log(movieCast) 
+                // Set release year variable
                 setReleaseYear(res.data.release_date.slice(0, 4))
+                // Set genres variable
+                setGenres(res.data.genres)
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -83,6 +94,7 @@ const MovieDetails = () => {
                 <div id='md-details' className='block-bottom'> 
                     {/* Movie Poster */}
                     <img 
+                    className='md-poster'
                     src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
                     alt="Movie poster" />
 
@@ -92,17 +104,48 @@ const MovieDetails = () => {
                         <h1 className='md-title'>
                             {movieData.title} <span className='md-span'>({releaseYear})</span>
                         </h1>
-                        
+
+                        {/* Genres and Rating */}
+                        <div id='md-genres-rating'>
+                            <p>
+                                <span className='bold'>Genres: </span>
+                                {
+                                    genres.map((genre, i) => {
+                                        // Print out each genre, only add a comma if its not the last one
+                                        if(i < genres.length -1) {
+                                            return (
+                                                genre.name + ", "
+                                            )
+                                        } else {
+                                            return (
+                                                genre.name
+                                            )
+                                        }
+                                    })
+                                }
+                            </p>
+                        </div>
                     </div>
+
+                        {/* TESTING DELETE THIS LATER ---------------------------------- */}
+                        <div>
+                            {
+                                directors.map((director, i) => {
+                                    return (
+                                        <img className='img-test' src={`https://image.tmdb.org/t/p/w1280${director.profile_path}`}/>
+                                    )
+                                })
+                            }
+                        </div>
 
                     <p>
                         {/* {
                             writers.map((w, i) => {
                                 return (
                                     <p>{w}</p>
-                                )
-                            })
-                        } */}
+                                    )
+                                })
+                            } */}
                     </p>
                 </div>
             </div>
