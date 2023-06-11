@@ -12,7 +12,7 @@ const MovieDetails = () => {
     const [movieCrew, setMovieCrew] = useState([]) 
 
     // Release Year Variable
-    const releaseYear = movieData.release_date.slice(0, 4)
+    const [releaseYear, setReleaseYear] = useState(2000)
 
     // Directors Variable
     const directors = movieCrew.filter(person => person.job === "Director").map((director, i) => {
@@ -60,7 +60,8 @@ const MovieDetails = () => {
                 setMovieData(res.data)
                 setMovieCast(res.data.credits.cast.slice(0, 10))
                 setMovieCrew(res.data.credits.crew)
-                console.log(movieCast)
+                console.log(movieCast) 
+                setReleaseYear(res.data.release_date.slice(0, 4))
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -91,6 +92,7 @@ const MovieDetails = () => {
                         <h1 className='md-title'>
                             {movieData.title} <span className='md-span'>({releaseYear})</span>
                         </h1>
+                        
                     </div>
 
                     <p>
