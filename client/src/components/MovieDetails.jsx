@@ -20,6 +20,9 @@ const MovieDetails = () => {
     // Runtime Variable
     const [runtime, setRuntime] = useState("")
 
+    // Rating Variable
+    const [rating, setRating] = useState(0)
+
     // Directors Variable
     const directors = movieCrew.filter(person => person.job === "Director").map((director, i) => {
         return (
@@ -78,6 +81,8 @@ const MovieDetails = () => {
                 setGenres(res.data.genres)
                 // Set runtime variable
                 setRuntime(Math.floor(res.data.runtime / 60) + "h " + res.data.runtime % 60 + "m")
+                // Set rating variable
+                setRating(res.data.vote_average.toFixed(1))
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -96,166 +101,171 @@ const MovieDetails = () => {
                 </div>
 
                 {/* Bottom Block */}
-                <div id='md-details' className='block-bottom'>
-                    {/* Movie Poster */}
-                    <img
-                        className='md-poster'
-                        src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
-                        alt="Movie poster" />
-
-                    {/* Movie Details */}
-                    <div id='md-info'>
-                        {/* Title and Log Button */}
-                        <div id='md-title-log'>
-                            {/* Title */}
-                            <h1>
-                                {movieData.title}
-                            </h1>
-                            {/* Log Movie Button */}
-                            <button className='btn'>Review</button>
+                <div className="block-bottom">
+                    <div id='md-details'>
+                        {/* Movie Poster */}
+                        <img
+                            className='md-poster'
+                            src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
+                            alt="Movie poster" />
+                        {/* Movie Details */}
+                        <div id='md-info'>
+                            {/* Title and Log Button */}
+                            <div id='md-title-log'>
+                                {/* Title */}
+                                <h1>
+                                    {movieData.title}
+                                </h1>
+                                {/* Log Movie Button */}
+                                <button className='btn'>Review</button>
+                            </div>
+                            {/* Year, Runtime, Rating */}
+                            <div id='md-yrr'>
+                                {/* Year */}
+                                <p>{releaseYear ? releaseYear : "n/a"}</p>
+                                <span className='br'> | </span>
+                                {/* Runtime */}
+                                <p>{runtime ? runtime : "n/a"}</p>
+                                <span className='br'> | </span>
+                                {/* Rating */}
+                                <p>⭐{rating ? rating : "n/a"}</p>
+                            </div>
+                            {/* Genres, Directors, Writers, Editors, DoPs */}
+                            <div>
+                                {/* Genres */}
+                                <div id='md-crew'>
+                                    <p>
+                                        <span className='bold'>{genres.length > 1 ? "Genres: " : "Genre: "}</span>
+                                        {
+                                            genres.map((genre, i) => {
+                                                // Print out each genre, only add a comma if its not the last one
+                                                if (i < genres.length - 1) {
+                                                    return (
+                                                        genre.name + ", "
+                                                    )
+                                                } else {
+                                                    return (
+                                                        genre.name
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </p>
+                                </div>
+                                {/* Directors */}
+                                <div className='md-crew'>
+                                    <p>
+                                        <span className='bold'>{directors.length > 1 ? "Directors: " : "Director: "}</span>
+                                        {
+                                            directors.map((director, i) => {
+                                                if (i < directors.length - 1) {
+                                                    return (
+                                                        director.name + ", "
+                                                    )
+                                                } else {
+                                                    return (
+                                                        director.name
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </p>
+                                </div>
+                                {/* Writers */}
+                                <div className='md-crew'>
+                                    <p>
+                                        <span className='bold'>{writers.length > 1 ? "Writers: " : "Writer: "}</span>
+                                        {
+                                            writers.map((writer, i) => {
+                                                if (i < writers.length - 1) {
+                                                    return (
+                                                        writer.name + ", "
+                                                    )
+                                                } else {
+                                                    return (
+                                                        writer.name
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </p>
+                                </div>
+                                {/* Editors */}
+                                <div className='md-crew'>
+                                    <p>
+                                        <span className='bold'>{editors.length > 1 ? "Editors: " : "Editor: "}</span>
+                                        {
+                                            editors.map((editor, i) => {
+                                                if (i < editors.length - 1) {
+                                                    return (
+                                                        editor.name + ", "
+                                                    )
+                                                } else {
+                                                    return (
+                                                        editor.name
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </p>
+                                </div>
+                                {/* Directors of Photography */}
+                                <div className="md-crew">
+                                    <p>
+                                        <span className='bold'>{dops.length > 1 ? "Cinematographers: " : "Cinematographer: "}</span>
+                                        {
+                                            dops.map((dop, i) => {
+                                                if (i < dops.length - 1) {
+                                                    return (
+                                                        dop.name + ", "
+                                                    )
+                                                } else {
+                                                    return (
+                                                        dop.name
+                                                    )
+                                                }
+                                            })
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            {/* Movie Summary */}
+                            <div>
+                                <span className='bold'>Plot: </span>
+                                <p>{movieData.overview ? movieData.overview : "n/a"}</p>
+                            </div>
+                            {/* Cast */}
+                            <div>
+                                <span className='bold'>Cast: </span>
+                                <div id="md-cast-list">
+                                    {
+                                        movieCast.map((actor, i) => {
+                                            return (
+                                                <div className='md-cast-member'>
+                                                    {/* Actor Photo */}
+                                                    <img
+                                                        src={`https://image.tmdb.org/t/p/w1280${actor.profile_path}`}
+                                                        alt="Actor photo"
+                                                        className='md-cast-photo' />
+                                                    {/* Character Name and Actor Name */}
+                                                    <div>
+                                                        {/* Character Name */}
+                                                        <p className='bold'>{actor.character ? actor.character : "n/a"}</p>
+                                                        {/* Actor Name */}
+                                                        <p>{actor.name ? actor.name : "n/a"}</p>
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
                         </div>
-
-
-                        {/* Year, Runtime, Rating */}
-                        <div id='md-yrr'>
-                            {/* Year */}
-                            <p>{releaseYear}</p>
-                            <span className='br'> | </span>
-                            {/* Runtime */}
-                            <p>{runtime}</p>
-                            <span className='br'> | </span>
-                            {/* Rating */}
-                            <p>⭐{movieData.vote_average.toFixed(1)}</p>
-                        </div>
-
-                        {/* Genres, Directors, Writers, Editors, DoPs */}
-                        <div>
-                            {/* Genres */}
-                            <div id='md-crew'>
-                                <p>
-                                    <span className='bold'>{genres.length > 1 ? "Genres: " : "Genre: "}</span>
-                                    {
-                                        genres.map((genre, i) => {
-                                            // Print out each genre, only add a comma if its not the last one
-                                            if (i < genres.length - 1) {
-                                                return (
-                                                    genre.name + ", "
-                                                )
-                                            } else {
-                                                return (
-                                                    genre.name
-                                                )
-                                            }
-                                        })
-                                    }
-                                </p>
-                            </div>
-                            {/* Directors */}
-                            <div className='md-crew'>
-                                <p>
-                                    <span className='bold'>{directors.length > 1 ? "Directors: " : "Director: "}</span>
-                                    {
-                                        directors.map((director, i) => {
-                                            if (i < directors.length - 1) {
-                                                return (
-                                                    director.name + ", "
-                                                )
-                                            } else {
-                                                return (
-                                                    director.name
-                                                )
-                                            }
-                                        })
-                                    }
-                                </p>
-                            </div>
-                            {/* Writers */}
-                            <div className='md-crew'>
-                                <p>
-                                    <span className='bold'>{writers.length > 1 ? "Writers: " : "Writer: "}</span>
-                                    {
-                                        writers.map((writer, i) => {
-                                            if (i < writers.length - 1) {
-                                                return (
-                                                    writer.name + ", "
-                                                )
-                                            } else {
-                                                return (
-                                                    writer.name
-                                                )
-                                            }
-                                        })
-                                    }
-                                </p>
-                            </div>
-                            {/* Editors */}
-                            <div className='md-crew'>
-                                <p>
-                                    <span className='bold'>{editors.length > 1 ? "Editors: " : "Editor: "}</span>
-                                    {
-                                        editors.map((editor, i) => {
-                                            if (i < editors.length - 1) {
-                                                return (
-                                                    editor.name + ", "
-                                                )
-                                            } else {
-                                                return (
-                                                    editor.name
-                                                )
-                                            }
-                                        })
-                                    }
-                                </p>
-                            </div>
-                            {/* Directors of Photography */}
-                            <div className="md-crew">
-                                <p>
-                                    <span className='bold'>{dops.length > 1 ? "Cinematographers: " : "Cinematographer: "}</span>
-                                    {
-                                        dops.map((dop, i) => {
-                                            if (i < dops.length - 1) {
-                                                return (
-                                                    dop.name + ", "
-                                                )
-                                            } else {
-                                                return (
-                                                    dop.name
-                                                )
-                                            }
-                                        })
-                                    }
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Movie Summary */}
-                        <div>
-                            <span className='bold'>Plot: </span>
-                            <p>{movieData.overview}</p>
-                        </div>
-
                     </div>
 
-                    {/* TESTING DELETE THIS LATER ---------------------------------- */}
-                    {/* <div>
-                        {
-                            directors.map((director, i) => {
-                                return (
-                                    <img className='img-test' src={`https://image.tmdb.org/t/p/w1280${director.profile_path}`} />
-                                )
-                            })
-                        }
-                    </div> */}
+                    {/* ------------------------------------------ */}
+                    {/* Reviews */}
 
-                    <p>
-                        {/* {
-                            writers.map((w, i) => {
-                                return (
-                                    <p>{w}</p>
-                                    )
-                                })
-                            } */}
-                    </p>
                 </div>
             </div>
         </div>
