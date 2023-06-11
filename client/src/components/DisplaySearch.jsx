@@ -198,7 +198,7 @@ const DisplaySearch = () => {
                                             </Link>
                                             {/* Year, Length, Age Rating, Genre */}
                                             <p className='movie-details'>
-                                                {movie.release_date ? movie.release_date.slice(0, 4) : "Unreleased"} <span>| </span>
+                                                {movie.release_date ? movie.release_date.slice(0, 4) : "Unreleased"} <span className='br'>| </span>
 
                                                 {/* {movie.runtime ? movie.runtime.seconds / 60 + "m" : "Uknown Runtime"} <span>| </span>
                                                 {movie.genres.genres[0] ? movie.genres.genres[0].id + ", " : false}
