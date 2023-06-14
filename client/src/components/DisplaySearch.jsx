@@ -113,34 +113,11 @@ const DisplaySearch = () => {
             <div id='display-filters' className='block-outline'>
                 {/* Title */}
                 <div className='block-top'>
-                    Filters
+                    Search
                 </div>
 
-                {/* Filters */}
+                {/* Search Block */}
                 <div className='block-bottom'>
-                    {/* Movie/User Radio Input */}
-                    <div id='search-for-block' className='filter'>
-                        <p className='filter-name'>Search For:</p>
-                        {/* Movie Input */}
-                        <div className="filter-input">
-                            <input id='search-for-movie'
-                                type="radio"
-                                onSelect={searchForMovie}
-                                name='search-for'
-                                defaultChecked
-                            />
-                            <label htmlFor='search-for-movie'> Movie</label>
-                        </div>
-                        {/* User Input */}
-                        <div className="filter-input">
-                            <input id='search-for-user'
-                                type="radio"
-                                onSelect={searchForUser}
-                                name='search-for'
-                            />
-                            <label htmlFor='search-for-user'> User</label>
-                        </div>
-                    </div>
 
                     {/* Movie Search Input */}
                     <div>
@@ -148,18 +125,7 @@ const DisplaySearch = () => {
                         <input type="text"
                             className='filter-input'
                             value={movieSearch}
-                            // onChange={(e) => swapSearchButton(e)}
                             onChange={(e) => setMovieSearch(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Release Year Filter */}
-                    <div id='release-year-block' className='filter'>
-                        <p className='filter-name'>Released By:</p>
-                        <input type="Number"
-                            className='filter-input'
-                            value={searchAfterYear}
-                            onChange={(e) => setSearchAfterYear(e.target.value)}
                         />
                     </div>
 

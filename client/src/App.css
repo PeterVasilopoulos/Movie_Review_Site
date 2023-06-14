@@ -24,7 +24,6 @@ body {
 /* Navbar */
 
 #navbar {
-  /* width: 1000px; */
   margin: 20px auto;
   flex: 1;
 }
@@ -51,10 +50,11 @@ body {
   font-weight: bold;
   color: rgb(21, 21, 21);
   align-items: center;
+  font-size: 18px;
 }
 
-#navbar-menu a {
-  color: rgb(31, 149, 135);
+.nb-menu-item {
+  color: rgb(31, 149, 90);
   text-decoration: none;
   padding: 4px 8px;
   margin-right: 4px;
@@ -63,24 +63,20 @@ body {
   transition: 0.2s;
 }
 
-#navbar-menu a:hover {
-  background-color: rgb(31, 149, 135);
+.nb-menu-item:hover {
+  background-color: rgb(31, 149, 90);
   color: white;
-}
-
-#movie-search-form {
-  display: flex;
-  gap: 20px;
-}
-
-#movie-search-form input {
-  padding-left: 3px;
-  width: 350px;
 }
 
 #navbar-buttons {
   display: flex;
   gap: 20px;
+  align-items: center;
+}
+
+.navbar-username {
+  font-size: 18px;
+  color: rgb(31, 149, 90);
 }
 
 
@@ -101,15 +97,11 @@ body {
   font-weight: bold;
 }
 
-.filter-input {
-  
-}
-
 #release-year-block input {
   width: 60px;
 }
 
-.search-for-radio input, label {
+.search-for-block input, label {
   cursor: pointer;
 }
 
@@ -308,12 +300,19 @@ body {
 
 .btn {
   background-color: white;
+  font-weight: bold;
   padding: 4px 8px;
   color: black;
   cursor: pointer;
   border: 2px solid black;
   font-size: 15px;
   box-shadow: 2px 2px  rgb(22, 22, 22);
+  transition: 0.1s;
+}
+
+.btn:hover {
+  background-color: rgb(31, 149, 90);
+  color: white;
 }
 
 .btn:active {

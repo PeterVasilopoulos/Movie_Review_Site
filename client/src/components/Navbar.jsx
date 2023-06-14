@@ -43,14 +43,14 @@ const Navbar = () => {
                     {/* Movie Search Button */}
                     <div id='navbar-menu'>
                         {/* Movies Search */}
-                        <a href="/movies">
+                        <a href="/movies" className='nb-menu-item'>
                             Movies
                         </a>
 
                         <span> | </span>
 
                         {/* Users Search */}
-                        <a href="/users">
+                        <a href="/users" className='nb-menu-item'>
                             Users
                         </a>
 
@@ -58,13 +58,22 @@ const Navbar = () => {
 
                         {/* My Reviews */}
                         {/* CHANGE LINK TO INCLUDE USER'S ID */}
-                        <a href="/users/">
+                        <a href="/users/" className='nb-menu-item'>
                             My Reviews
+                        </a>
+
+                        <span> | </span>
+
+                        {/* Watchlist */}
+                        {/* CHANGE LINK TO INCLUDE USER'S ID */}
+                        <a href="/watchlist/" className='nb-menu-item'>
+                            Watchlist
                         </a>
                     </div>
 
                     {/* Login/Logout */}
                     <div id='navbar-buttons'>
+                        <p className='bold navbar-username'>Username</p>
                         <button className='btn' onClick={logout}>Logout</button>
                     </div>                </div>
 
