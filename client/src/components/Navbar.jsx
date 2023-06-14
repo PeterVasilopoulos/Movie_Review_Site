@@ -41,13 +41,30 @@ const Navbar = () => {
                 {/* Bottom Section */}
                 <div id='navbar-bottom'>
                     {/* Movie Search Button */}
-                    <div>
-                        <button className='btn' onClick={movieSearch}>Movies</button>
+                    <div id='navbar-menu'>
+                        {/* Movies Search */}
+                        <a href="/movies">
+                            Movies
+                        </a>
+
+                        <span> | </span>
+
+                        {/* Users Search */}
+                        <a href="/users">
+                            Users
+                        </a>
+
+                        <span> | </span>
+
+                        {/* My Reviews */}
+                        {/* CHANGE LINK TO INCLUDE USER'S ID */}
+                        <a href="/users/">
+                            My Reviews
+                        </a>
                     </div>
 
                     {/* Login/Logout */}
                     <div id='navbar-buttons'>
-                        <button className='btn' onClick={myReviews}>My Reviews</button>
                         <button className='btn' onClick={logout}>Logout</button>
                     </div>                </div>
 
