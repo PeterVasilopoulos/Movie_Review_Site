@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
@@ -22,6 +22,9 @@ const MovieDetails = () => {
 
     // Rating Variable
     const [rating, setRating] = useState(0)
+
+    // Backdrops Variable
+    const [backdrops, setBackdrops] = useState([])
 
     // Directors Variable
     const directors = movieCrew.filter(person => person.job === "Director").map((director, i) => {
@@ -63,7 +66,7 @@ const MovieDetails = () => {
 
     // Use Effect to get movie data
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits&language=en-US`, options)
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?append_to_response=credits%2Cimages`, options)
             .then((res) => {
                 // Log the data
                 console.log("Movie Data: ", res.data)
@@ -73,8 +76,6 @@ const MovieDetails = () => {
                 setMovieCast(res.data.credits.cast[15] ? res.data.credits.cast.slice(0, 16) : res.data.credits.cast)
                 // Set movie crew variable
                 setMovieCrew(res.data.credits.crew)
-                // Log the cast
-                console.log(movieCast)
                 // Set release year variable
                 setReleaseYear(res.data.release_date.slice(0, 4))
                 // Set genres variable
@@ -83,6 +84,8 @@ const MovieDetails = () => {
                 setRuntime(Math.floor(res.data.runtime / 60) + "h " + res.data.runtime % 60 + "m")
                 // Set rating variable
                 setRating(res.data.vote_average.toFixed(1))
+                // Set the backdrops variable
+                setBackdrops(res.data.images.backdrops)
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -110,6 +113,21 @@ const MovieDetails = () => {
                                 src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
                                 alt="Movie poster" />
                             {/* Other Information */}
+
+
+                            {/* Image Slideshow Test */}
+                            <div id='md-slideshow'>
+                                <div className='md-slide'>
+                                    <div className='md-slide-num'>1/3</div>
+                                    <img src="https://variety.com/wp-content/uploads/2015/10/blunt.jpg?w=640" alt="Image from movie" />
+                                </div>
+
+                                <div id='md-slide-buttons'>
+                                    <p className='prev'>Previous</p>
+                                    <p className='next'>Next</p>
+                                </div>
+                            </div>
+
 
                         </div>
                         {/* Movie Details */}
@@ -139,7 +157,7 @@ const MovieDetails = () => {
                                 {
                                     genres.map((genre, i) => {
                                         return (
-                                            <div className='md-genre'>
+                                            <div className='md-genre' key={i}>
                                                 {genre.name}
                                             </div>
                                         )
@@ -237,7 +255,7 @@ const MovieDetails = () => {
                                     {
                                         movieCast.map((actor, i) => {
                                             return (
-                                                <div className='md-cast-member'>
+                                                <div className='md-cast-member' key={i}>
                                                     {/* Actor Photo */}
                                                     <img
                                                         src={actor.profile_path ? `https://image.tmdb.org/t/p/w1280${actor.profile_path}` : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png'}

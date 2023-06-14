@@ -161,6 +161,41 @@ body {
   border: 2px solid rgb(54, 48, 32);
 }
 
+
+
+
+#md-slideshow {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.md-slide {
+  display: none;
+}
+
+.md-slide-num {
+  position: absolute;
+  top: 0;
+  padding: 8px 10px;
+  color: white;
+}
+
+.md-slide img {
+  width: 100%;
+}
+
+#md-slide-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prev, .next {
+  cursor: pointer;
+}
+
+
+
+
 #md-info > * {
   margin-bottom: 10px;
 }
@@ -184,6 +219,11 @@ body {
   border-radius: 20px;
   background-color: rgb(43, 44, 40);
   color: white;
+  transition: 0.2s ease;
+}
+
+.md-genre:hover {
+  background-color: white;
 }
 
 .md-title {
