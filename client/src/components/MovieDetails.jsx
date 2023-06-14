@@ -103,11 +103,15 @@ const MovieDetails = () => {
                 {/* Bottom Block */}
                 <div className="block-bottom">
                     <div id='md-details'>
-                        {/* Movie Poster */}
-                        <img
-                            className='md-poster'
-                            src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
-                            alt="Movie poster" />
+                        <div id="md-left">
+                            {/* Movie Poster */}
+                            <img
+                                className='md-poster'
+                                src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
+                                alt="Movie poster" />
+                            {/* Other Information */}
+
+                        </div>
                         {/* Movie Details */}
                         <div id='md-info'>
                             {/* Title and Log Button */}
@@ -130,28 +134,20 @@ const MovieDetails = () => {
                                 {/* Rating */}
                                 <p>⭐{rating ? rating : "n/a"}</p>
                             </div>
-                            {/* Genres, Directors, Writers, Editors, DoPs */}
+                            {/* Genres */}
+                            <div className='md-crew'>
+                                {
+                                    genres.map((genre, i) => {
+                                        return (
+                                            <div className='md-genre'>
+                                                {genre.name}
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            {/* Directors, Writers, Editors, DoPs */}
                             <div>
-                                {/* Genres */}
-                                <div id='md-crew'>
-                                    <p>
-                                        <span className='bold'>{genres.length > 1 ? "Genres: " : "Genre: "}</span>
-                                        {
-                                            genres.map((genre, i) => {
-                                                // Print out each genre, only add a comma if its not the last one
-                                                if (i < genres.length - 1) {
-                                                    return (
-                                                        genre.name + ", "
-                                                    )
-                                                } else {
-                                                    return (
-                                                        genre.name
-                                                    )
-                                                }
-                                            })
-                                        }
-                                    </p>
-                                </div>
                                 {/* Directors */}
                                 <div className='md-crew'>
                                     <p>
