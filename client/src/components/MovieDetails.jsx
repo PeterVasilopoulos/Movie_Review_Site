@@ -26,13 +26,35 @@ const MovieDetails = () => {
     // Backdrops Variable
     const [backdrops, setBackdrops] = useState([])
 
+    // Logic for image slideshow
+    const [imgShowing, setImgShowing] = useState(0)
+    const [defaultBackdrop, setDefaultBackdrop] = useState("")
+    const [btnClicked, setBtnClicked] = useState(false)
+
+    const slideNext = () => {
+        if (backdrops[imgShowing + 1]) {
+            setImgShowing(imgShowing + 1)
+        } else {
+            setImgShowing(0)
+        }
+        setBtnClicked(true)
+    }
+
+    const slidePrev = () => {
+        if (backdrops[imgShowing - 1]) {
+            setImgShowing(imgShowing - 1)
+        } else {
+            setImgShowing(backdrops.length - 1)
+        }
+        setBtnClicked(true)
+    }
+
     // Directors Variable
     const directors = movieCrew.filter(person => person.job === "Director").map((director, i) => {
         return (
             director
         )
     })
-    console.log(directors)
 
     // Writers Variable
     const writers = movieCrew.filter(person => person.job === "Writer" || person.job === "Screenplay").map((writer, i) => {
@@ -86,6 +108,7 @@ const MovieDetails = () => {
                 setRating(res.data.vote_average.toFixed(1))
                 // Set the backdrops variable
                 setBackdrops(res.data.images.backdrops)
+                setDefaultBackdrop(res.data.images.backdrops[0].file_path)
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -112,30 +135,29 @@ const MovieDetails = () => {
                                 className='md-poster'
                                 src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
                                 alt="Movie poster" />
-                            {/* Other Information */}
-
 
                             {/* Image Slideshow Test */}
                             <div id='md-slideshow'>
-                                <div className='md-slide'>
-                                    <div className='md-slide-num'>1/3</div>
-                                    <img src="https://variety.com/wp-content/uploads/2015/10/blunt.jpg?w=640" alt="Image from movie" />
-                                </div>
-
                                 <div id='md-slide-buttons'>
-                                    <p className='prev'>Previous</p>
-                                    <p className='next'>Next</p>
+                                    <p className='prev' onClick={slidePrev}>◄</p>
+                                    <p className='bold'>Images</p>
+                                    <p className='next' onClick={slideNext}>►</p>
+                                </div>
+                                <div className='md-slide'>
+                                    <div className='md-slide-num'>{imgShowing + 1}/{backdrops.length}</div>
+                                    <img
+                                        src={btnClicked ? `https://image.tmdb.org/t/p/w1280${backdrops[imgShowing].file_path}` : `https://image.tmdb.org/t/p/w1280${defaultBackdrop}`}
+                                        alt="Image from movie" />
                                 </div>
                             </div>
-
-
                         </div>
+
                         {/* Movie Details */}
-                        <div id='md-info'>
+                        <div id='md-right'>
                             {/* Title and Log Button */}
                             <div id='md-title-log'>
                                 {/* Title */}
-                                <h1>
+                                <h1 className='md-title'>
                                     {movieData.title}
                                 </h1>
                                 {/* Log Movie Button */}
@@ -228,6 +250,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{dops.length > 1 ? "Cinematographers: " : "Cinematographer: "}</span>
                                         {
+                                            dops ?
                                             dops.map((dop, i) => {
                                                 if (i < dops.length - 1) {
                                                     return (
@@ -238,7 +261,7 @@ const MovieDetails = () => {
                                                         dop.name
                                                     )
                                                 }
-                                            })
+                                            }) : "n/a"
                                         }
                                     </p>
                                 </div>

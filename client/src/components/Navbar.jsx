@@ -34,7 +34,7 @@ const Navbar = () => {
                 {/* Title */}
                 <div id='navbar-title' className='block-top'>
                     <Link id='nt-text' to={'/'}>
-                        Movie Reviews
+                        The Film Repository
                     </Link>
                 </div>
 
