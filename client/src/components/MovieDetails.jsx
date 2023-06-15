@@ -26,6 +26,9 @@ const MovieDetails = () => {
     // Backdrops Variable
     const [backdrops, setBackdrops] = useState([])
 
+    // Movie Reviews Variable
+    const [movieReviews, setMovieReviews] = useState([])
+
     // Logic for image slideshow
     const [imgShowing, setImgShowing] = useState(0)
     const [defaultBackdrop, setDefaultBackdrop] = useState("")
@@ -109,6 +112,20 @@ const MovieDetails = () => {
                 // Set the backdrops variable
                 setBackdrops(res.data.images.backdrops)
                 setDefaultBackdrop(res.data.images.backdrops[0].file_path)
+
+                // Get the movie reviews
+                axios.get(`http://localhost:8000/api/reviews/movie/${res.data.id}`)
+                    .then((reviewsRes) => {
+                        //Log data
+                        console.log("Reviews: ", reviewsRes.data.results)
+                        // Set movie reviews variable
+                        setMovieReviews(reviewsRes.data.results)
+                    })
+                    .catch((reviewsErr) => {
+                        // Log error if we get one
+                        console.log("Get Movie Reviews Error: ", reviewsErr)
+                    })
+                    
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -194,17 +211,17 @@ const MovieDetails = () => {
                                         <span className='bold'>{directors.length > 1 ? "Directors: " : "Director: "}</span>
                                         {
                                             directors.length > 1 ?
-                                            directors.map((director, i) => {
-                                                if (i < directors.length - 1) {
-                                                    return (
-                                                        director.name + ", "
-                                                    )
-                                                } else {
-                                                    return (
-                                                        director.name
-                                                    )
-                                                }
-                                            }) : "n/a"
+                                                directors.map((director, i) => {
+                                                    if (i < directors.length - 1) {
+                                                        return (
+                                                            director.name + ", "
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            director.name
+                                                        )
+                                                    }
+                                                }) : "n/a"
                                         }
                                     </p>
                                 </div>
@@ -214,17 +231,17 @@ const MovieDetails = () => {
                                         <span className='bold'>{writers.length > 1 ? "Writers: " : "Writer: "}</span>
                                         {
                                             writers.length > 1 ?
-                                            writers.map((writer, i) => {
-                                                if (i < writers.length - 1) {
-                                                    return (
-                                                        writer.name + ", "
-                                                    )
-                                                } else {
-                                                    return (
-                                                        writer.name
-                                                    )
-                                                }
-                                            }) : "n/a"
+                                                writers.map((writer, i) => {
+                                                    if (i < writers.length - 1) {
+                                                        return (
+                                                            writer.name + ", "
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            writer.name
+                                                        )
+                                                    }
+                                                }) : "n/a"
                                         }
                                     </p>
                                 </div>
@@ -234,17 +251,17 @@ const MovieDetails = () => {
                                         <span className='bold'>{editors.length > 1 ? "Editors: " : "Editor: "}</span>
                                         {
                                             editors.length > 1 ?
-                                            editors.map((editor, i) => {
-                                                if (i < editors.length - 1) {
-                                                    return (
-                                                        editor.name + ", "
-                                                    )
-                                                } else {
-                                                    return (
-                                                        editor.name
-                                                    )
-                                                }
-                                            }) : "n/a"
+                                                editors.map((editor, i) => {
+                                                    if (i < editors.length - 1) {
+                                                        return (
+                                                            editor.name + ", "
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            editor.name
+                                                        )
+                                                    }
+                                                }) : "n/a"
                                         }
                                     </p>
                                 </div>
@@ -254,17 +271,17 @@ const MovieDetails = () => {
                                         <span className='bold'>{dops.length > 1 ? "Cinematographers: " : "Cinematographer: "}</span>
                                         {
                                             dops.length > 1 ?
-                                            dops.map((dop, i) => {
-                                                if (i < dops.length - 1) {
-                                                    return (
-                                                        dop.name + ", "
-                                                    )
-                                                } else {
-                                                    return (
-                                                        dop.name
-                                                    )
-                                                }
-                                            }) : "n/a"
+                                                dops.map((dop, i) => {
+                                                    if (i < dops.length - 1) {
+                                                        return (
+                                                            dop.name + ", "
+                                                        )
+                                                    } else {
+                                                        return (
+                                                            dop.name
+                                                        )
+                                                    }
+                                                }) : "n/a"
                                         }
                                     </p>
                                 </div>
