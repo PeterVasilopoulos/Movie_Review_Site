@@ -1,12 +1,11 @@
 const Review = require("../models/review.model")
+const User = require("../models/user.model")
 
 // Create Review
 module.exports.createReview = (req, res) => {
     const userId = req.params.userId
-    const movieId = req.params.movieId
     const newReview = new Review(req.body)
     newReview.user = userId
-    newReview.movie = movieId
     newReview.save()
     .then(review => {
         // Adding review to user's review list
@@ -16,24 +15,15 @@ module.exports.createReview = (req, res) => {
             foundUser.save()
                 .then(userRes => res.json(userRes))
         })
-
-        // Adding review to movie's review list
-        const movie = Movie.findOne({_id: movieId})
-        .then(foundMovie => {
-            foundMovie.reviews.push(newReview)
-            foundMovie.save()
-                .then(movieRes => res.json(movieRes))
-        })
     })
     .catch(err => res.status(400).json(err))
 }
 
 // Get All Reviews
 module.exports.allReviews = (req, res) => {
-    return res.json("Im working")
-    // Review.find()
-    // .then(allReviews => res.json({results: allReviews}))
-    // .catch(err => res.json(err))
+    Review.find()
+    .then(allReviews => res.json({results: allReviews}))
+    .catch(err => res.json(err))
 }
 
 // Get One Review

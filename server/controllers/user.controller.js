@@ -4,7 +4,7 @@ const User = require("../models/user.model")
 module.exports.createUser = (req, res) => {
     const newUser = req.body
     User.create(newUser)
-    .then(user => res.json({results: review}))
+    .then(user => res.json({results: user}))
     .catch(err => res.status(400).json(err))
 }
 

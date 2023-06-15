@@ -5,7 +5,7 @@ const ReviewController = require("../controllers/review.controller")
 const reviewRoutes = express.Router()
 
 // Create review
-reviewRoutes.post("/new/:userId/:movieId", ReviewController.createReview)
+reviewRoutes.post("/new/:userId", ReviewController.createReview)
 
 // Get all reviews
 reviewRoutes.get("/", ReviewController.allReviews)

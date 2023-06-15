@@ -7,7 +7,7 @@ const ReviewSchema = new mongoose.Schema({
         required: [true, "Movie title is required"]
     },
     body: {
-        type: String,
+        type: String
     },
     rating: {
         type: Number,
@@ -23,9 +23,8 @@ const ReviewSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    movie: {
-        type: Schema.Types.ObjectId,
-        ref: "Movie"
+    movieId: {
+        type: Number
     }
 }, {timestamps: true})
 

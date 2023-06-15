@@ -82,7 +82,7 @@ const MovieDetails = () => {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDM1ZTU0OWJhN2U1YWRkMDk3NmIxZTczNWFjYzI1NCIsInN1YiI6IjY0NDI5ZjgxY2VlMmY2MDRmMzM2MTcyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qCl7J57Cmn2rKIqWdB6mWasWruaAUU3EqO4Iphbgr58'
+            Authorization: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkZDM1ZTU0OWJhN2U1YWRkMDk3NmIxZTczNWFjYzI1NCIsInN1YiI6IjY0NDI5ZjgxY2VlMmY2MDRmMzM2MTcyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qCl7J57Cmn2rKIqWdB6mWasWruaAUU3EqO4Iphbgr58'
         }
     }
 
@@ -120,10 +120,10 @@ const MovieDetails = () => {
 
     return (
         <div className='section'>
-            <div id='details-block' className='block-outline'>
+            <div id='movie-details' className='block-outline'>
                 {/* Top Block */}
                 <div className='block-top'>
-                    <p>Film Name</p>
+                    <p>Movie Details</p>
                 </div>
 
                 {/* Bottom Block */}
@@ -193,6 +193,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{directors.length > 1 ? "Directors: " : "Director: "}</span>
                                         {
+                                            directors.length > 1 ?
                                             directors.map((director, i) => {
                                                 if (i < directors.length - 1) {
                                                     return (
@@ -203,7 +204,7 @@ const MovieDetails = () => {
                                                         director.name
                                                     )
                                                 }
-                                            })
+                                            }) : "n/a"
                                         }
                                     </p>
                                 </div>
@@ -212,6 +213,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{writers.length > 1 ? "Writers: " : "Writer: "}</span>
                                         {
+                                            writers.length > 1 ?
                                             writers.map((writer, i) => {
                                                 if (i < writers.length - 1) {
                                                     return (
@@ -222,7 +224,7 @@ const MovieDetails = () => {
                                                         writer.name
                                                     )
                                                 }
-                                            })
+                                            }) : "n/a"
                                         }
                                     </p>
                                 </div>
@@ -231,6 +233,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{editors.length > 1 ? "Editors: " : "Editor: "}</span>
                                         {
+                                            editors.length > 1 ?
                                             editors.map((editor, i) => {
                                                 if (i < editors.length - 1) {
                                                     return (
@@ -241,7 +244,7 @@ const MovieDetails = () => {
                                                         editor.name
                                                     )
                                                 }
-                                            })
+                                            }) : "n/a"
                                         }
                                     </p>
                                 </div>
@@ -250,7 +253,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{dops.length > 1 ? "Cinematographers: " : "Cinematographer: "}</span>
                                         {
-                                            dops ?
+                                            dops.length > 1 ?
                                             dops.map((dop, i) => {
                                                 if (i < dops.length - 1) {
                                                     return (

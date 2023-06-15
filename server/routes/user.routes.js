@@ -1,12 +1,16 @@
+const express = require('express')
+
 const UserController = require("../controllers/user.controller")
 
-module.exports = (app) => {
+const userRoutes = express.Router()
+
     // Create user 
-    app.post("/api/users/new", UserController.createUser)
+    userRoutes.post("/new", UserController.createUser)
 
     // Get all users
-    app.get("/api/users", UserController.allUsers)
+    userRoutes.get("/", UserController.allUsers)
 
     // Get one user
-    app.get("/api/users/:id", UserController.oneUser)
-}
+    userRoutes.get("/:id", UserController.oneUser)
+
+    module.exports = { userRoutes }
