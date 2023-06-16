@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 const MovieDetails = () => {
     // Get movie id from params
@@ -125,7 +125,7 @@ const MovieDetails = () => {
                         // Log error if we get one
                         console.log("Get Movie Reviews Error: ", reviewsErr)
                     })
-                    
+
             })
             .catch((err) => {
                 // Log the error if we get one
@@ -210,7 +210,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{directors.length > 1 ? "Directors: " : "Director: "}</span>
                                         {
-                                            directors.length > 1 ?
+                                            directors.length >= 1 ?
                                                 directors.map((director, i) => {
                                                     if (i < directors.length - 1) {
                                                         return (
@@ -230,7 +230,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{writers.length > 1 ? "Writers: " : "Writer: "}</span>
                                         {
-                                            writers.length > 1 ?
+                                            writers.length >= 1 ?
                                                 writers.map((writer, i) => {
                                                     if (i < writers.length - 1) {
                                                         return (
@@ -250,7 +250,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{editors.length > 1 ? "Editors: " : "Editor: "}</span>
                                         {
-                                            editors.length > 1 ?
+                                            editors.length >= 1 ?
                                                 editors.map((editor, i) => {
                                                     if (i < editors.length - 1) {
                                                         return (
@@ -270,7 +270,7 @@ const MovieDetails = () => {
                                     <p>
                                         <span className='bold'>{dops.length > 1 ? "Cinematographers: " : "Cinematographer: "}</span>
                                         {
-                                            dops.length > 1 ?
+                                            dops.length >= 1 ?
                                                 dops.map((dop, i) => {
                                                     if (i < dops.length - 1) {
                                                         return (
@@ -322,7 +322,31 @@ const MovieDetails = () => {
 
                     {/* ------------------------------------------ */}
                     {/* Reviews */}
+                    <div id='md-reviews'>
+                        <p id='md-reviews-header'>User Reviews:</p>
+                        {
+                            movieReviews.length >= 1 ?
+                                movieReviews.map((review, i) => {
+                                    return (
+                                        <div className='md-one-review'>
+                                            {/* Review Top */}
+                                            <div className='block-top md-review-top'>
+                                                {/* Username */}
+                                                <Link to={"/"} className='md-review-username'>
+                                                    {review.user.username}
+                                                </Link>
+                                            </div>
 
+                                            {/* Review Bottom */}
+                                            <div className='block-bottom'>
+                                                {/* Review Body */}
+                                                <p>{review.body}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                }) : <p>No Reviews Yet</p>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

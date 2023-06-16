@@ -306,6 +306,43 @@ body {
 }
 
 
+/* Movie Details Reviews */
+
+#md-reviews {
+  margin: 0 30px 10px;
+  padding-top: 10px;
+  border-top: 2px solid rgb(54, 48, 32);
+}
+
+#md-reviews-header {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.md-one-review {
+  margin: 0 20px;
+  border: 2px solid rgb(54, 48, 32);
+  border-radius: 4px;
+}
+
+.md-review-top {
+  padding: 4px;
+}
+
+.md-review-username {
+  font-weight: bold;
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+  margin-left: 6px;
+}
+
+.md-review-username:hover {
+  text-decoration: underline;
+}
+
+
 /* Utilities */
 
 .section {

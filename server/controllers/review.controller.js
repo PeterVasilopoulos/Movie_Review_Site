@@ -56,7 +56,7 @@ module.exports.deleteReview = (req, res) => {
 // Get All Reviews By Movie ID
 module.exports.allReviewsByMovie = (req, res) => {
     const movieId = req.params.movieId
-    Review.find({movieId: movieId})
+    Review.find({movieId: movieId}).populate("user")
     .then(reviews => res.json({results: reviews}))
     .catch(err => res.json(err))
 }
