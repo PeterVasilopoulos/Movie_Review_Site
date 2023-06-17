@@ -139,16 +139,18 @@ const DisplaySearch = () => {
                 <div id='display-search' className='block-bottom'>
 
                     {/* Movie Search Input */}
-                    <div id='display-search-movie'>
-                        <p className='bold'>Movie Title:</p>
-                        <input type="text" id='display-search-input' value={movieSearch} onChange={(e) => setMovieSearch(e.target.value)}
-                        />
-                    </div>
+                    <form>
+                        <div id='display-search-movie'>
+                            <p className='bold'>Movie Title:</p>
+                            <input type="text" id='display-search-input' value={movieSearch} onChange={(e) => setMovieSearch(e.target.value)}
+                            />
+                        </div>
 
-                    {/* Search Button */}
-                    <div className='flx'>
-                        <button className='display-search-btn btn' onClick={(e) => swapSearchButton(e)}>Search</button>
-                    </div>
+                        {/* Search Button */}
+                        <div className='flx'>
+                            <button className='display-search-btn btn' onClick={(e) => swapSearchButton(e)}>Search</button>
+                        </div>
+                    </form>
 
                     {/* Default Searches */}
                     <div id='display-defaults'>

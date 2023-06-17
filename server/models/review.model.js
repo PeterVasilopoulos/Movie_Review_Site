@@ -25,6 +25,12 @@ const ReviewSchema = new mongoose.Schema({
     },
     movieId: {
         type: Number
+    },
+    movieTitle: {
+        type: String
+    },
+    moviePosterPath: {
+        type: String
     }
 }, {timestamps: true})
 
