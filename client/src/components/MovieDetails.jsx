@@ -343,19 +343,47 @@ const MovieDetails = () => {
                             movieReviews.length >= 1 ?
                                 movieReviews.map((review, i) => {
                                     return (
-                                        <div className='md-one-review'>
+                                        <div className='md-one-review' key={i}>
                                             {/* Review Top */}
                                             <div className='block-top md-review-top'>
                                                 {/* Username */}
-                                                <Link to={"/"} className='md-review-username'>
-                                                    {review.user.username}
+                                                <Link to={"/users/" + review.user._id}>
+                                                    <p className='md-review-username'>
+                                                        {review.user.username}
+                                                    </p>
                                                 </Link>
+                                                <p className='md-watched'>
+                                                    {review.rewatch ? "rewatched " : "watched "}
+                                                    <Link to={"/movies/" + review.movieId}>
+                                                        <span className='bold md-movie-link'>{review.movieTitle}</span>
+                                                    </Link>
+                                                    <span> on </span>
+                                                    <span className='bold'>{review.date.slice(0, 10)}</span>
+                                                    <span> and rated it </span>
+                                                    <span className='bold'>⭐{review.rating}</span>
+                                                </p>
                                             </div>
 
                                             {/* Review Bottom */}
-                                            <div className='block-bottom'>
-                                                {/* Review Body */}
-                                                <p>{review.body}</p>
+                                            <div className='block-bottom md-review-bottom'>
+                                                <div>
+                                                    {/* Movie Poster*/}
+                                                    <Link to={"/movies/" + review.movieId}>
+                                                        <img
+                                                            src={review.moviePosterPath ? `https://image.tmdb.org/t/p/w1280${review.moviePosterPath}` : "https://movienewsletters.net/photos/000000h1.jpg"}
+                                                            alt="Movie poster"
+                                                            className='md-review-poster' />
+                                                    </Link>
+                                                </div>
+
+                                                <div>
+                                                    {/* Movie Title */}
+                                                    <Link to={"/movies/" + review.movieId}>
+                                                        <p className='md-review-title bold md-movie-link'>{review.movieTitle}</p>
+                                                    </Link>
+                                                    {/* Review Body */}
+                                                    <p>{review.body}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     )
