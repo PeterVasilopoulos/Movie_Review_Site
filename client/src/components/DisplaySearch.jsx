@@ -94,7 +94,7 @@ const DisplaySearch = () => {
             // Gets popular movies on page load
             let promises = []
             for (let i = 1; i < 4; i++) {
-                promises.push(axios.get(`${defaultSearches}${[searchNum]}${i}`, options))
+                promises.push(axios.get(defaultSearches[searchNum] + i, options))
             }
             Promise.all(promises)
                 .then((res) => {
@@ -110,6 +110,7 @@ const DisplaySearch = () => {
     // ---------------------------------------------------------------------------------
 
     console.log(foundMovies)
+    console.log(defaultSearches[1] + "1")
 
     // Swap Search Button
     const swapSearchButton = (e) => {

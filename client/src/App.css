@@ -1,20 +1,24 @@
+/* -------------------------------------- */
 /* CSS Reset */
+/* -------------------------------------- */
 
 * {
   margin: 0;
   padding: 0;
 }
 
-
+/* -------------------------------------- */
 /* Page Background */
+/* -------------------------------------- */
 
 body {
   background-color: rgb(43, 44, 40);
   margin-bottom: 20px;
 }
 
-
+/* -------------------------------------- */
 /* Navbar */
+/* -------------------------------------- */
 
 #navbar {
   margin: 20px auto;
@@ -72,8 +76,9 @@ body {
   color: rgb(31, 149, 90);
 }
 
-
+/* -------------------------------------- */
 /* Display Search Page */
+/* -------------------------------------- */
 
 #display-filters {
   flex: 1;
@@ -129,8 +134,9 @@ body {
   flex: 4;
 }
 
-
+/* -------------------------------------- */
 /* Movie Info */
+/* -------------------------------------- */
 
 .movie-info {
   display: flex;
@@ -185,8 +191,9 @@ body {
   -webkit-box-orient: vertical;
 }
 
-
+/* -------------------------------------- */
 /* Movie Details Page */
+/* -------------------------------------- */
 
 #movie-details {
   flex: 1;
@@ -305,8 +312,16 @@ body {
   border: 2px solid rgb(54, 48, 32);
 }
 
+#md-cast-title {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
 
+/* -------------------------------------- */
 /* Movie Details Reviews */
+/* -------------------------------------- */
 
 #md-reviews {
   margin: 0 30px 10px;
@@ -342,8 +357,68 @@ body {
   text-decoration: underline;
 }
 
+/* -------------------------------------- */
+/* Full Cast and Crew Page */
+/* -------------------------------------- */
 
+#cc-page {
+  flex: 1;
+}
+
+#cc-movie-info {
+  display: flex;
+  gap: 10px;
+}
+
+.cc-poster {
+  height: 200px;
+  border: 2px solid rgb(54, 48, 32);
+  margin-bottom: 10px;
+}
+
+#cc-movie-title {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+#cc-movie-description {
+  margin-bottom: 20px;
+}
+
+#cc-back {
+  display: inline;
+}
+
+#cc-lists {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  padding-left: 30px;
+}
+
+.cc-list-type {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.cc-member {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cc-photo {
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid rgb(54, 48, 32);
+}
+
+/* -------------------------------------- */
 /* Utilities */
+/* -------------------------------------- */
 
 .section {
   display: flex;
@@ -367,7 +442,6 @@ body {
 
 .btn:hover {
   background-color: rgb(31, 149, 90);
-  /* color: white; */
 }
 
 .btn:active {

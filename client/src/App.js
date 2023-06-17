@@ -5,6 +5,7 @@ import './App.css'
 import Navbar from './components/Navbar'
 import DisplaySearch from './components/DisplaySearch';
 import MovieDetails from './components/MovieDetails';
+import CastAndCrew from './components/CastAndCrew';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
         
         {/* Movie Details Page */}
         <Route path='/movies/:id' element={<MovieDetails/>}/>
+
+        {/* Cast and Crew Page */}
+        <Route path='/movies/cast&crew/:id' element={<CastAndCrew/>}/>
       </Routes>
     </div>
   );

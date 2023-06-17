@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 const MovieDetails = () => {
     // Get movie id from params
     const { id } = useParams()
+
+    // Create a navigate variable
+    const navigate = useNavigate()
 
     // Variable to hold the movie data
     const [movieData, setMovieData] = useState({})
@@ -79,6 +82,12 @@ const MovieDetails = () => {
             dop
         )
     })
+
+    // Full Cast and Crew Button Function
+    const fullCrew = () => {
+        // Navigate to the cast and crew page for specific movie
+        navigate('/movies/cast&crew/' + movieData.id)
+    }
 
     // Options variable for the api
     const options = {
@@ -293,7 +302,13 @@ const MovieDetails = () => {
                             </div>
                             {/* Cast */}
                             <div>
-                                <span className='bold'>Cast: </span>
+                                <div id='md-cast-title'>
+                                    <span className='bold'>Cast: </span>
+                                    <div className='bold default-search' onClick={fullCrew}>
+                                        <p>View Full</p>
+                                        <p>Cast and Crew</p>
+                                    </div>
+                                </div>
                                 <div id="md-cast-list">
                                     {
                                         movieCast.map((actor, i) => {
@@ -306,10 +321,10 @@ const MovieDetails = () => {
                                                         className='md-cast-photo' />
                                                     {/* Character Name and Actor Name */}
                                                     <div>
-                                                        {/* Character Name */}
-                                                        <p className='bold'>{actor.character ? actor.character : "n/a"}</p>
                                                         {/* Actor Name */}
-                                                        <p>{actor.name ? actor.name : "n/a"}</p>
+                                                        <p className='bold'>{actor.name ? actor.name : "n/a"}</p>
+                                                        {/* Character Name */}
+                                                        <p>{actor.character ? actor.character : "n/a"}</p>
                                                     </div>
                                                 </div>
                                             )
