@@ -23,6 +23,9 @@ const ReviewSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    rewatch: {
+        type: Boolean
+    },
     movieId: {
         type: Number
     },
