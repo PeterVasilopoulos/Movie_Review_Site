@@ -382,7 +382,7 @@ const MovieDetails = () => {
                                                         <p className='md-review-title bold md-movie-link'>{review.movieTitle}</p>
                                                     </Link>
                                                     {/* Review Body */}
-                                                    <p>{review.body}</p>
+                                                    <p><span className='bold'>Review: </span>{review.body}</p>
                                                 </div>
                                             </div>
                                         </div>

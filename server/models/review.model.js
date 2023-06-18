@@ -24,7 +24,8 @@ const ReviewSchema = new mongoose.Schema({
         ref: "User"
     },
     rewatch: {
-        type: Boolean
+        type: Boolean,
+        required: [true, "'Watched before?' selection is required"]
     },
     movieId: {
         type: Number
