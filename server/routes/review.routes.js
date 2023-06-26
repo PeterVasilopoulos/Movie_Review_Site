@@ -28,4 +28,4 @@ reviewRoutes.get("/movie/:movieId", ReviewController.allReviewsByMovie)
 reviewRoutes.get("/user/:userId", ReviewController.allReviewsByUser)
 
 
-module.exports = { reviewRoutes }
+module.exports = { reviewRoutes } 
