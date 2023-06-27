@@ -24,5 +24,19 @@ const UserSchema = new mongoose.Schema({
     }]
 }, {timestamps: true})
 
+
+// Confirm Password Virtual Variable
+UserSchema.virtual("confirmPassword")
+    .get(() => this._confirmPassword)
+    .set(value => this._confirmPassword = value)
+
+UserSchema.pre("validate", function(next) {
+    if(this.password !== this.confirmPassword) {
+        this.invalidate("confirmPassword", "Passwords must match");
+    }
+    next()
+})
+
+
 const User = mongoose.model("User", UserSchema)
 module.exports = User
