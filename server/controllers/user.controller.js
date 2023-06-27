@@ -22,3 +22,10 @@ module.exports.oneUser = (req, res) => {
     .then(user => res.json({results: user}))
     .catch(err => res.json(err))
 }
+
+// Check For Cookies
+module.exports.cookie = (req, res) => {
+    res
+        .cookie("testkey", "testvalue", {httpOnly:true})
+        .json("success")
+}
