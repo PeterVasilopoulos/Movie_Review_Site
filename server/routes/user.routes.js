@@ -4,13 +4,16 @@ const UserController = require("../controllers/user.controller")
 
 const userRoutes = express.Router()
 
-    // Create user 
-    userRoutes.post("/new", UserController.createUser)
+// Create user 
+userRoutes.post("/new", UserController.createUser)
 
-    // Get all users
-    userRoutes.get("/", UserController.allUsers)
+// Get all users
+userRoutes.get("/", UserController.allUsers)
 
-    // Get one user
-    userRoutes.get("/:id", UserController.oneUser)
+// Get one user
+userRoutes.get("/:id/view", UserController.oneUser)
 
-    module.exports = { userRoutes }
+// Cookie test
+userRoutes.get("/cookie", UserController.cookie)
+
+module.exports = { userRoutes }

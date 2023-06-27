@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import DisplaySearch from './components/DisplaySearch';
 import MovieDetails from './components/MovieDetails';
 import CastAndCrew from './components/CastAndCrew';
+import CookieTest from './components/CookieTest';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
 
         {/* Cast and Crew Page */}
         <Route path='/movies/cast&crew/:id' element={<CastAndCrew/>}/>
+
+        {/* Cookie Test */}
+        <Route path='/users' element={<CookieTest/>}/>
       </Routes>
     </div>
   );
