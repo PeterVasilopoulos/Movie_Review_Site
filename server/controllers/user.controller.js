@@ -1,11 +1,14 @@
 const User = require("../models/user.model")
 
 // Create User
-module.exports.createUser = (req, res) => {
-    const newUser = req.body
-    User.create(newUser)
-    .then(user => res.json({results: user}))
-    .catch(err => res.status(400).json(err))
+module.exports.createUser = async (req, res) => {
+    try {
+        req.session.user = await User.create(req.body);
+        await req.session.save();
+        return res.json(req.session.user);
+    } catch (error) {
+        return res.status(400).json(error);
+    }
 }
 
 // Get All Users
@@ -28,4 +31,30 @@ module.exports.cookie = (req, res) => {
     res
         .cookie("testkey", "testvalue", {httpOnly:true})
         .json("success")
+}
+
+
+// --------------------------------------------
+// AUTHENTICATION
+// --------------------------------------------
+
+
+// Get Logged In User
+module.exports.getLoggedUser = (req, res) => res.json(req.session.user);
+
+// Login
+module.exports.login = async (req, res) => {
+    try {
+        req.session.user = await User.checkLogin(req.body);
+        await req.session.save();
+        return res.json(req.session.user);
+    } catch (error) {
+        return res.status(401).json(error);
+    }
+}
+
+// Logout
+module.exports.logout = (req, res) => {
+    req.session.destroy();
+    return res.json({ message: "success" });
 }
