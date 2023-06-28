@@ -1,34 +1,40 @@
-import {Routes, Route, Link} from 'react-router-dom'
+import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import AppContext from './libs/context';
+import { useState } from 'react';
 
 // Route Imports
 import Navbar from './components/Navbar'
 import DisplaySearch from './components/DisplaySearch';
 import MovieDetails from './components/MovieDetails';
 import CastAndCrew from './components/CastAndCrew';
-import CookieTest from './components/CookieTest';
 
 function App() {
+  // Logged user context variable
+  const [loggedUser, setLoggedUser] = useState()
+
   return (
     <div className="App">
-      <Navbar />
+      <AppContext.Provider value={{ loggedUser, setLoggedUser }}>
 
-      <Routes>
-        {/* Home Page */}
-        <Route path='/'/>
+        <Navbar />
 
-        {/* Movie Search Page */}
-        <Route path='/movies' element={<DisplaySearch/>}/>
-        
-        {/* Movie Details Page */}
-        <Route path='/movies/:id' element={<MovieDetails/>}/>
+        <Routes>
+          {/* Home Page */}
+          <Route path='/' />
 
-        {/* Cast and Crew Page */}
-        <Route path='/movies/cast&crew/:id' element={<CastAndCrew/>}/>
+          {/* Movie Search Page */}
+          <Route path='/movies' element={<DisplaySearch />} />
 
-        {/* Cookie Test */}
-        <Route path='/users' element={<CookieTest/>}/>
-      </Routes>
+          {/* Movie Details Page */}
+          <Route path='/movies/:id' element={<MovieDetails />} />
+
+          {/* Cast and Crew Page */}
+          <Route path='/movies/cast&crew/:id' element={<CastAndCrew />} />
+
+        </Routes>
+
+      </AppContext.Provider>
     </div>
   );
 }

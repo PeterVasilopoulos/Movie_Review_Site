@@ -48,6 +48,15 @@ UserSchema.pre("save", function(next) {
         })
 })
 
+// Statistic Method To Handle Login Validations
+UserSchema.statics.checkLogin = async function({username, password}) {
+    const user = await this.findOne({username})
+    if(!(user && await bcrypt.compare(password, user.password))) {
+        throw new this().invalidate("password", "Invalid Login")
+    }
+    return user;
+}
+
 
 const User = mongoose.model("User", UserSchema)
 module.exports = User

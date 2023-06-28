@@ -1,5 +1,11 @@
 const User = require("../models/user.model")
 
+
+// --------------------------------------------
+// USERS
+// --------------------------------------------
+
+
 // Create User
 module.exports.createUser = async (req, res) => {
     try {
