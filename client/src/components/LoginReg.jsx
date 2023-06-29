@@ -28,7 +28,7 @@ const LoginReg = () => {
         // Prevent page reload
         e.preventDefault()
         // Reset errors
-        setRegFormErrors()
+        setRegFormErrors({})
         // Axios post reqeust
         axios.post('http://localhost:8000/api/users/new', regFormData, { withCredentials: true })
             .then(res => {
@@ -40,7 +40,6 @@ const LoginReg = () => {
             .catch(err => {
                 // Set errors if there are any
                 setRegFormErrors(err.response.data.errors)
-                console.log(err)
             })
     }
 
@@ -49,7 +48,7 @@ const LoginReg = () => {
         // Prevent page reload
         e.preventDefault()
         // Reset errors
-        setLoginFormErrors()
+        setLoginFormErrors({})
         // Axios post reqeust
         axios.post('http://localhost:8000/api/users/login', loginFormData, { withCredentials: true })
             .then(res => {
@@ -88,33 +87,33 @@ const LoginReg = () => {
                         {/* Registration Form */}
                         <div className='block-outline'>
                             <h2 className='block-top'>Register</h2>
-                            <form action={registerSubmit} className='block-bottom'>
+                            <form onSubmit={registerSubmit} className='block-bottom'>
                                 <table className='lr-form'>
                                     <tbody>
                                         {/* First Name */}
                                         <tr>
                                             <td><label>First Name:</label></td>
-                                            <td><input type='text' name='firstName' onChange={regChange}/></td>
+                                            <td><input type='text' name='firstName' onChange={regChange} /></td>
                                         </tr>
                                         {/* Last Name */}
                                         <tr>
                                             <td><label>Last Name:</label></td>
-                                            <td><input type='text' name='lastName' onChange={regChange}/></td>
+                                            <td><input type='text' name='lastName' onChange={regChange} /></td>
                                         </tr>
                                         {/* Username */}
                                         <tr>
                                             <td><label>Username:</label></td>
-                                            <td><input type="text" name='username' onChange={regChange}/></td>
+                                            <td><input type="text" name='username' onChange={regChange} /></td>
                                         </tr>
                                         {/* Password */}
                                         <tr>
                                             <td><label>Password:</label></td>
-                                            <td><input type="password" name='password' onChange={regChange}/></td>
+                                            <td><input type="password" name='password' onChange={regChange} /></td>
                                         </tr>
                                         {/* Confirm Password */}
                                         <tr>
                                             <td><label>Confirm Password:</label></td>
-                                            <td><input type="password" name='confirmPassword' onChange={regChange}/></td>
+                                            <td><input type="password" name='confirmPassword' onChange={regChange} /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -124,25 +123,61 @@ const LoginReg = () => {
                                 </div>
                             </form>
 
-                            {/* Errors */}
-                            {regFormErrors.message}
+                            {/* Registration Errors */}
+                            {
+                                // Checking if registration form errors variable exists
+                                regFormErrors ?
+                                    <div className='lr-errors'>
+                                        {/* First Name */}
+                                        {
+                                            regFormErrors.firstName ?
+                                                <p>{regFormErrors.firstName.message}</p>
+                                                : false
+                                        }
+                                        {/* Last Name */}
+                                        {
+                                            regFormErrors.lastName ?
+                                                <p>{regFormErrors.lastName.message}</p>
+                                                : false
+                                        }
+                                        {/* Username */}
+                                        {
+                                            regFormErrors.username ?
+                                                <p>{regFormErrors.username.message}</p>
+                                                : false
+                                        }
+                                        {/* Password */}
+                                        {
+                                            regFormErrors.password ?
+                                                <p>{regFormErrors.password.message}</p>
+                                                : false
+                                        }
+                                        {/* Confirm Password */}
+                                        {
+                                            regFormErrors.confirmPassword ?
+                                                <p>{regFormErrors.confirmPassword.message}</p>
+                                                : false
+                                        }
+                                    </div>
+                                    : false
+                            }
                         </div>
 
                         {/* Login Form */}
                         <div className='block-outline'>
                             <h2 className='block-top'>Login</h2>
-                            <form action="" className='block-bottom'>
+                            <form onSubmit={loginSubmit} className='block-bottom'>
                                 <table className='lr-form'>
                                     <tbody>
                                         {/* Username */}
                                         <tr>
                                             <td><label>Username:</label></td>
-                                            <td><input type='text' name='username' onChange={loginChange}/></td>
+                                            <td><input type='text' name='username' onChange={loginChange} /></td>
                                         </tr>
                                         {/* Password */}
                                         <tr>
                                             <td><label>Password:</label></td>
-                                            <td><input type='password' name='password' onChange={loginChange}/></td>
+                                            <td><input type='password' name='password' onChange={loginChange} /></td>
                                         </tr>
                                     </tbody>
                                 </table>

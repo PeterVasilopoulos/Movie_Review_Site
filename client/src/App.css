@@ -122,6 +122,17 @@ body {
   margin-top: 5px;
 }
 
+.lr-errors {
+  color: rgb(195, 27, 27);
+  font-size: 13px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.lr-errors > * {
+  margin-bottom: 2px;
+}
+
 /* -------------------------------------- */
 /* Display Search Page */
 /* -------------------------------------- */
