@@ -25,7 +25,7 @@ const AllUsers = () => {
             <div id='all-users' className='block-outline'>
                 {/* Top Block */}
                 <div className='block-top'>
-                    All Users
+                    <p>All Users</p>
                 </div>
 
                 {/* Bottom Block */}

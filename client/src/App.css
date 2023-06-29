@@ -217,6 +217,10 @@ body {
   border: 1px solid rgb(54, 48, 32);
 }
 
+.movie-poster:hover {
+  border: 1px solid rgb(31, 149, 90);
+}
+
 .movie-title {
   font-size: 24px;
   font-weight: bold;
@@ -507,7 +511,7 @@ body {
 }
 
 /* -------------------------------------- */
-/* Users Page */
+/* All Users Page */
 /* -------------------------------------- */
 
 #all-users {
@@ -560,6 +564,106 @@ body {
   color: white;
   border-radius: 5px;
   transition: 0.2s;
+}
+
+/* -------------------------------------- */
+/* One User Page */
+/* -------------------------------------- */
+
+#one-user {
+  flex: 1;
+}
+
+#ou-bottom {
+  display: flex;
+  gap: 20px;
+}
+
+#ou-left-side {
+  flex: 1;
+}
+
+#ou-username {
+  font-size: 28px;
+  color: rgb(54, 48, 32);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#ou-info {
+  margin-left: 8px;
+}
+
+#ou-info > * {
+  margin-bottom: 5px;
+}
+
+#ou-info:last-child {
+  margin-bottom: 0;
+}
+
+#ou-info-tag {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#ou-wl {
+  font-weight: bold;
+  font-size: 22px;
+  margin-top: 20px;
+}
+
+#ou-watchlist {
+  list-style: none;
+}
+
+#ou-reviews {
+  flex: 3;
+}
+
+.ou-one-review {
+  border-bottom: 1px solid rgb(155, 155, 155);
+  padding: 15px 0;
+}
+
+.ou-one-review:first-of-type {
+  padding: 0 0 15px 0;
+}
+
+.ou-one-review:last-of-type {
+  border-bottom: none;
+  padding: 15px 0 0 0;
+}
+
+.ou-review-top {
+  margin-bottom: 4px;
+}
+
+.ou-review-username {
+  font-size: 18px;
+}
+
+.ou-review-link:hover {
+  text-decoration: underline;
+}
+
+.ou-review-bottom {
+  display: flex;
+  gap: 10px;
+}
+
+.ou-review-poster {
+  height: 100px;
+  border: 1px solid rgb(54, 48, 32);
+}
+
+.ou-review-poster:hover {
+  border: 1px solid rgb(31, 149, 90);
+}
+
+.ou-review-title {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 /* -------------------------------------- */
