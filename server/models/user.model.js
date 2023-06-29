@@ -51,6 +51,9 @@ UserSchema.pre("save", function(next) {
 // Statistic Method To Handle Login Validations
 UserSchema.statics.checkLogin = async function({username, password}) {
     const user = await this.findOne({username})
+    if(user && !bcrypt.compare(password, user.password)) {
+        throw new this().invalidate("password", "Invalid Login")
+    }
     if(!(user && await bcrypt.compare(password, user.password))) {
         throw new this().invalidate("password", "Invalid Login")
     }

@@ -60,6 +60,7 @@ const LoginReg = () => {
             .catch(err => {
                 // Set errors if there are any
                 setLoginFormErrors(err.response.data.errors)
+                console.log(err.response.data.errors)
             })
     }
 
