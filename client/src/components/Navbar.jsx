@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../libs/context'
 import axios from 'axios'
@@ -93,7 +93,7 @@ const Navbar = () => {
                             loggedUser ?
                                 <div className='navbar-buttons'>
                                     {/* Username (only displays if logged in) */}
-                                    <p className='bold navbar-username'>{loggedUser.username}</p>
+                                    <p className='nb-menu-item bold navbar-username'>{loggedUser.username}</p>
 
                                     {/* Logout Button */}
                                     <button className='btn' onClick={logout}>Logout</button>
