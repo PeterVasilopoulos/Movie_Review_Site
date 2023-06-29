@@ -11,6 +11,7 @@ import CastAndCrew from './components/CastAndCrew';
 import LoginReg from './components/LoginReg';
 import AllUsers from './components/AllUsers';
 import OneUser from './components/OneUser';
+import NewReview from './components/NewReview';
 
 function App() {
   // Logged user context variable
@@ -34,6 +35,9 @@ function App() {
 
           {/* Cast and Crew Page */}
           <Route path='/movies/cast&crew/:id' element={<CastAndCrew />} />
+
+          {/* New Review Page */}
+          <Route path='/movies/:id/review' element={<NewReview/>}/>
 
           {/* All Users Page */}
           <Route path='/users' element={<AllUsers/>}/>

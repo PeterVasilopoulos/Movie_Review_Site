@@ -126,7 +126,9 @@ const OneUser = () => {
                                                         </Link>
                                                         <div>
                                                             {/* Movie Title */}
-                                                            <p className='ou-review-title'>{review.movieTitle}</p>
+                                                            <Link to={`/movies/${review.movieId}`} className='ou-review-title'>
+                                                                {review.movieTitle}
+                                                            </Link>
                                                             {/* Review */}
                                                             <p>
                                                                 <span className='bold'>Review: </span>

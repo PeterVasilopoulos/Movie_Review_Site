@@ -1,35 +1,41 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../libs/context'
 import axios from 'axios'
 
 const Navbar = () => {
     // Logged in user variable
-    const { loggedUser } = useAppContext()
+    const {loggedUser, setLoggedUser} = useAppContext()
 
     // Setup navigate variable
     const navigate = useNavigate()
 
-    // Movie Search Button
-    const movieSearch = (e) => {
-        e.preventDefault()
+    // Logout check variable
+    const [loggedOut, setLoggedOut] = useState(false)
 
-        // Navigate to movie search page
-        navigate('/movies')
-    }
-
-    // My reviews button
-    const myReviews = (e) => {
-        e.preventDefault()
-
-        // Navigate to my reviews page
-        navigate('/')
-    }
+    // Check if user is logged in
+    useEffect(() => {
+        if(!loggedUser) {
+            axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
+                .then((res) => {
+                    // User is logged in, set logged user variable
+                    setLoggedUser(res.data)
+                })
+                .catch(() => {
+                    // User is not logged in, clear logged user variable
+                    setLoggedUser()
+                })
+        }
+    }, [loggedOut])
 
     // Logout button function
     const logout = (e) => {
         e.preventDefault()
-        axios.delete("http://localhost:8000/api/users/logout", { withCredentials: true })
+
+        // Swap logged out variable
+        setLoggedOut(!loggedOut)
+
+        axios.delete("http://localhost:8000/api/users/logout", {withCredentials: true})
             .then((res) => {
                 navigate('/')
             })
@@ -59,32 +65,32 @@ const Navbar = () => {
                     {/* Movie Search Button */}
                     <div id='navbar-menu'>
                         {/* Movies Search */}
-                        <a href="/movies" className='nb-menu-item'>
+                        <Link to="/movies" className='nb-menu-item'>
                             Movies
-                        </a>
+                        </Link>
 
                         <span> | </span>
 
                         {/* Users Search */}
-                        <a href="/users" className='nb-menu-item'>
+                        <Link to="/users" className='nb-menu-item'>
                             Users
-                        </a>
+                        </Link>
 
                         <span> | </span>
 
                         {/* My Reviews */}
                         {/* CHANGE LINK TO INCLUDE USER'S ID */}
-                        <a href="/users/" className='nb-menu-item'>
+                        <Link to="/users/" className='nb-menu-item'>
                             My Reviews
-                        </a>
+                        </Link>
 
                         <span> | </span>
 
                         {/* Watchlist */}
                         {/* CHANGE LINK TO INCLUDE USER'S ID */}
-                        <a href="/watchlist/" className='nb-menu-item'>
+                        <Link to="/watchlist/" className='nb-menu-item'>
                             Watchlist
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Login/Logout */}
@@ -93,7 +99,9 @@ const Navbar = () => {
                             loggedUser ?
                                 <div className='navbar-buttons'>
                                     {/* Username (only displays if logged in) */}
-                                    <p className='nb-menu-item bold navbar-username'>{loggedUser.username}</p>
+                                    <Link to={`/users/${loggedUser._id}`} className='nb-menu-item bold navbar-username'>
+                                        {loggedUser.username}
+                                    </Link>
 
                                     {/* Logout Button */}
                                     <button className='btn' onClick={logout}>Logout</button>

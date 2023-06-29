@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useAppContext } from '../libs/context'
 
 const MovieDetails = () => {
     // Get movie id from params
     const { id } = useParams()
+
+    // Get logged user 
+    const { loggedUser } = useAppContext()
 
     // Create a navigate variable
     const navigate = useNavigate()
@@ -186,8 +190,17 @@ const MovieDetails = () => {
                                 <h1 className='md-title'>
                                     {movieData.title}
                                 </h1>
-                                {/* Log Movie Button */}
-                                <button className='btn'>Review</button>
+                                {/* Review Movie Button */}
+                                {/* only shows up if user is logged in */}
+                                {
+                                    loggedUser ?
+                                        // <button className='btn'>Review</button>
+                                        <Link to={`/movies/${id}/review`} className='btn'>
+                                            Review
+                                        </Link>
+                                        : false
+                                }
+
                             </div>
                             {/* Year, Runtime, Rating */}
                             <div id='md-yrr'>

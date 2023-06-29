@@ -20,7 +20,7 @@ const LoginReg = () => {
     const [loginFormErrors, setLoginFormErrors] = useState({})
 
     // Logged in user variable
-    const { setLoggedUser } = useAppContext()
+    const {loggedUser, setLoggedUser} = useAppContext()
 
 
     // Registration submit handler
@@ -72,6 +72,11 @@ const LoginReg = () => {
     // Handle login change
     const loginChange = (e) => {
         setLoginFormData({ ...loginFormData, [e.target.name]: e.target.value })
+    }
+
+    // Check if user is already logged in, if so reroute to movies page
+    if(loggedUser) {
+        navigate("/movies")
     }
 
     return (
