@@ -21,6 +21,21 @@ const NewReview = () => {
     // Variable to hold the movie information
     const [movieData, setMovieData] = useState({})
 
+    // Create review form errors variable
+    const [reviewFormErrors, setReviewFormErrors] = useState({})
+
+    // Variable to hold the review form data
+    const [reviewFormData, setReviewFormData] = useState({
+        movieTitle: "",
+        movieId: null,
+        moviePosterPath: "",
+        user: loggedUser ? loggedUser._id : null,
+        rating: 1,
+        date: null,
+        rewatch: false,
+        body: ""
+    })
+
     // Options variable for the api
     const options = {
         method: 'GET',
@@ -36,12 +51,50 @@ const NewReview = () => {
             .then((res) => {
                 // Set movie data variable
                 setMovieData(res.data)
+                // Set movie title, id, poster path
+                setReviewFormData({
+                    ...reviewFormData, 
+                    movieTitle: res.data.title,
+                    movieId: res.data.id,
+                    moviePosterPath: res.data.poster_path
+                })
             })
             .catch((err) => {
                 // Log error if there is one
                 console.log("Error:", err)
             })
     }, [])
+
+    // Review Form Change Function
+    const revChange = (e) => {
+        setReviewFormData({ ...reviewFormData, [e.target.name]: e.target.value })
+        console.log(reviewFormData)
+    }
+
+    // Rewatch Functions
+    // False
+    const rewatchFalse = () => {
+        setReviewFormData({ ...reviewFormData, rewatch: false })
+    }
+    // True
+    const rewatchTrue = () => {
+        setReviewFormData({ ...reviewFormData, rewatch: true })
+    }
+
+    // Submit Review Function
+    const submitReview = (e) => {
+        e.preventDefault()
+
+        axios.post(`http://localhost:8000/api/reviews/new/${loggedUser._id}`, reviewFormData, {withCredentials: true})
+            .then((res) => {
+                navigate(`/movies/${movieData.id}`)
+            })
+            .catch((err) => {
+                // Set review form errors variable
+                console.log(err)
+                // setReviewFormErrors(err.response.data.errors)
+            })
+    }
 
     // --------------------------------
     // STAR FUNCTIONALITY
@@ -81,6 +134,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(1)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 1 })
     }
     // Star 2 Function
     const star2 = () => {
@@ -99,6 +154,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(2)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 2 })
     }
     // Star 3 Function
     const star3 = () => {
@@ -117,6 +174,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(3)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 3 })
     }
     // Star 4 Function
     const star4 = () => {
@@ -135,6 +194,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(4)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 4 })
     }
     // Star 5 Function
     const star5 = () => {
@@ -153,6 +214,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(5)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 5 })
     }
     // Star 6 Function
     const star6 = () => {
@@ -171,6 +234,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(6)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 6 })
     }
     // Star 7 Function
     const star7 = () => {
@@ -189,6 +254,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(7)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 7 })
     }
     // Star 8 Function
     const star8 = () => {
@@ -207,6 +274,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(8)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 8 })
     }
     // Star 9 Function
     const star9 = () => {
@@ -225,6 +294,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(9)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 9 })
     }
     // Star 10 Function
     const star10 = () => {
@@ -243,6 +314,8 @@ const NewReview = () => {
         })
         // Set star input
         setStarInput(10)
+        // Set form data rating value
+        setReviewFormData({ ...reviewFormData, rating: 10 })
     }
 
     return (
@@ -301,62 +374,123 @@ const NewReview = () => {
 
                         {/* Form Bottom Block */}
                         <div className='block-bottom'>
-                            <form>
+                            <form onSubmit={submitReview}>
                                 {/* Title Hidden Input */}
-                                <input type="hidden" name='title' value={movieData.movieTitle ? movieData.movieTitle : "n/a"} />
+                                <input
+                                    type="hidden"
+                                    name='movieTitle'
+                                    value={movieData.movieTitle ? movieData.movieTitle : "n/a"}
+                                    onChange={revChange}
+                                />
                                 {/* Movie ID Hidden Input */}
-                                <input type="hidden" value={movieData.id ? movieData.id : 0} />
+                                <input
+                                    type="hidden"
+                                    name='movieId'
+                                    value={movieData.id ? movieData.id : 0}
+                                    onChange={revChange}
+                                />
                                 {/* Movie Poster Path Hidden Input */}
-                                <input type="hidden" value={movieData.poster_path ? movieData.poster_path : ""} />
+                                <input
+                                    type="hidden"
+                                    name='moviePosterPath'
+                                    value={movieData.poster_path ? movieData.poster_path : ""}
+                                    onChange={revChange}
+                                />
+                                {/* User ID Hidden Input */}
+                                <input
+                                    type="hidden"
+                                    name='user'
+                                    value={loggedUser ? loggedUser._id : 0}
+                                    onChange={revChange}
+                                />
 
                                 {/* Rating */}
-                                <label>Rating: </label>
-                                <input type="hidden" name='rating' value={starInput} />
-                                <div id='review-rating'>
-                                    <p id='review-rating-number'>{starInput}</p>
-                                    <p className='star' onClick={star1}>
-                                        {stars.star1 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star2}>
-                                        {stars.star2 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star3}>
-                                        {stars.star3 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star4}>
-                                        {stars.star4 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star5}>
-                                        {stars.star5 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star6}>
-                                        {stars.star6 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star7}>
-                                        {stars.star7 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star8}>
-                                        {stars.star8 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star9}>
-                                        {stars.star9 ? "★" : "☆"}
-                                    </p>
-                                    <p className='star' onClick={star10}>
-                                        {stars.star10 ? "★" : "☆"}
-                                    </p>
+                                <div className='review-bot-border'>
+                                    <label>Rating: </label>
+                                    <div id='review-rating'>
+                                        <p id='review-rating-number'>{starInput}</p>
+                                        <p className='star' onClick={star1}>
+                                            {stars.star1 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star2}>
+                                            {stars.star2 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star3}>
+                                            {stars.star3 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star4}>
+                                            {stars.star4 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star5}>
+                                            {stars.star5 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star6}>
+                                            {stars.star6 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star7}>
+                                            {stars.star7 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star8}>
+                                            {stars.star8 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star9}>
+                                            {stars.star9 ? "★" : "☆"}
+                                        </p>
+                                        <p className='star' onClick={star10}>
+                                            {stars.star10 ? "★" : "☆"}
+                                        </p>
+                                    </div>
                                 </div>
 
                                 {/* Date Watched */}
-                                <label>Date Watched:</label>
-                                <div id='review-date-watched'>
-                                    <input type="date"/>
+                                <div className='review-margin review-bot-border'>
+                                    <label>Date Watched:</label>
+                                    <div id='review-date-watched' className='review-margin'>
+                                        <input type="date" name='date' onChange={revChange} />
+                                    </div>
                                 </div>
 
                                 {/* Rewatch */}
-                                <label>Watched Before?</label>
-                                <div className='review-radio'>
-                                    <p>Yes</p>
-                                    <input type="radio" />
+                                <div className='review-margin review-bot-border'>
+                                    <label>Watched Before?</label>
+                                    <div id='review-watched-before' className='review-margin'>
+                                        {/* False */}
+                                        <div className='review-radio'>
+                                            <p>No</p>
+                                            <input type="radio" name='rewatch' defaultChecked className='radio' onChange={rewatchFalse} />
+                                        </div>
+                                        {/* True */}
+                                        <div className='review-radio'>
+                                            <p>Yes</p>
+                                            <input type="radio" name='rewatch' className='radio' onChange={rewatchTrue} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Review Body */}
+                                <div className='review-margin'>
+                                    <label>Review:</label>
+                                    <div className='flx'>
+                                        <textarea
+                                            name="body"
+                                            id="review-body"
+                                            cols="40"
+                                            rows="15"
+                                            onChange={revChange}
+                                        ></textarea>
+                                    </div>
+                                </div>
+
+                                {/* Submit Button */}
+                                <div id='review-submit'>
+                                    <button className='btn'>
+                                        Submit
+                                    </button>
+                                </div>
+
+                                {/* Errors */}
+                                <div>
+                                    
                                 </div>
 
                             </form>

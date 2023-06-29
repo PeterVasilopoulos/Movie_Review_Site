@@ -589,6 +589,7 @@ body {
 #review-form {
   width: 500px;
   margin: 0 auto;
+  margin-bottom: 50px;
 }
 
 #review-form label {
@@ -606,6 +607,11 @@ body {
   gap: 2px;
   justify-content: center;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.review-bot-border {
+  border-bottom: 1px solid rgb(190, 190, 190);
 }
 
 #review-rating-number {
@@ -622,8 +628,19 @@ body {
     -1px 0 black, 0 -1px black;
 }
 
+.review-margin {
+  padding: 10px 0;
+  margin: 5px 0;
+}
+
 #review-date-watched {
-  margin: 15px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+#review-watched-before {
+  display: flex;
+  gap: 60px;
   justify-content: center;
   align-items: center;
 }
@@ -631,6 +648,23 @@ body {
 .review-radio {
   display: flex;
   gap: 10px;
+  font-weight: bold;
+}
+
+.radio {
+  accent-color: rgb(31, 149, 90);
+}
+
+#review-body {
+  margin: 0 auto;
+  border: 2px solid rgb(54, 48, 32);
+  padding: 2px;
+  outline: none;
+}
+
+#review-submit {
+  display: flex;
+  justify-content: center;
 }
 
 /* -------------------------------------- */

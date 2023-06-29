@@ -188,7 +188,7 @@ const MovieDetails = () => {
                             <div id='md-title-log'>
                                 {/* Title */}
                                 <h1 className='md-title'>
-                                    {movieData.movieTitle}
+                                    {movieData.title}
                                 </h1>
                                 {/* Review Movie Button */}
                                 {/* only shows up if user is logged in */}
