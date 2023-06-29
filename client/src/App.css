@@ -83,6 +83,46 @@ body {
 }
 
 /* -------------------------------------- */
+/* Login and Registration Page */
+/* -------------------------------------- */
+
+#login-reg-page {
+  flex: 1;
+}
+
+#lr-bottom {
+  padding: 50px 0;
+}
+
+#lr-forms {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  align-items: center;
+}
+
+.lr-form label {
+  padding-right: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: right;
+}
+
+.lr-form input {
+  padding: 2px;
+}
+
+.lr-form td {
+  padding-bottom: 5px;
+}
+
+.lr-submit {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+/* -------------------------------------- */
 /* Display Search Page */
 /* -------------------------------------- */
 
@@ -454,6 +494,62 @@ body {
   width: 50px;
   border-radius: 50%;
   border: 2px solid rgb(54, 48, 32);
+}
+
+/* -------------------------------------- */
+/* Users Page */
+/* -------------------------------------- */
+
+#all-users {
+  flex: 1;
+}
+
+.al-user {
+  margin-bottom: 20px;
+}
+
+.al-user:last-of-type {
+  margin-bottom: 0;
+}
+
+.al-outline {
+  border: 3px solid rgb(54, 48, 32);
+}
+
+.al-username {
+  font-size: 22px;
+  color: rgb(54, 48, 32);
+}
+
+.al-user-bottom {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.al-real-name {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.al-username:hover {
+  text-decoration: underline;
+}
+
+.al-view {
+  color: rgb(31, 149, 90);
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.al-view:hover {
+  background-color: rgb(31, 149, 90);
+  color: white;
+  border-radius: 5px;
+  transition: 0.2s;
 }
 
 /* -------------------------------------- */

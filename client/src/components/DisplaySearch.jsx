@@ -188,7 +188,7 @@ const DisplaySearch = () => {
                     {/* ------------------------------------------------------------ */}
                     {/* MAP THROUGH ALL FOUND MOVIES */}
                     {
-                        foundMovies.length > 1 ?
+                        foundMovies.length >= 1 ?
                             foundMovies.map((movie, i) => {
                                 if (movie.vote_count > 100) {
                                     return (

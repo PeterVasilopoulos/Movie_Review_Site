@@ -2,6 +2,8 @@ const express = require('express')
 
 const UserController = require("../controllers/user.controller")
 
+const {authenticate} = require('../configs/middleware.config')
+
 const userRoutes = express.Router()
 
 // -------------------------
@@ -28,9 +30,9 @@ userRoutes.get("/cookie", UserController.cookie)
 userRoutes.post('/login', UserController.login)
 
 // Get Logged In User
-userRoutes.get('/loggedin', UserController.getLoggedUser)
+userRoutes.get('/loggedin', authenticate, UserController.getLoggedUser)
 
 // Logout
-userRoutes.delete('/logout', UserController.logout)
+userRoutes.delete('/logout', authenticate, UserController.logout)
 
 module.exports = { userRoutes }

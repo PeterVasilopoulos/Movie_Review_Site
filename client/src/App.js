@@ -1,13 +1,15 @@
-import { Routes, Route, Link } from 'react-router-dom'
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
 import AppContext from './libs/context';
 import { useState } from 'react';
+import './App.css'
 
 // Route Imports
 import Navbar from './components/Navbar'
 import DisplaySearch from './components/DisplaySearch';
 import MovieDetails from './components/MovieDetails';
 import CastAndCrew from './components/CastAndCrew';
+import LoginReg from './components/LoginReg';
+import AllUsers from './components/AllUsers';
 
 function App() {
   // Logged user context variable
@@ -21,7 +23,7 @@ function App() {
 
         <Routes>
           {/* Home Page */}
-          <Route path='/' />
+          <Route path='/' element={<LoginReg/>}/>
 
           {/* Movie Search Page */}
           <Route path='/movies' element={<DisplaySearch />} />
@@ -32,6 +34,8 @@ function App() {
           {/* Cast and Crew Page */}
           <Route path='/movies/cast&crew/:id' element={<CastAndCrew />} />
 
+          {/* All Users Page */}
+          <Route path='/users' element={<AllUsers/>}/>
         </Routes>
 
       </AppContext.Provider>

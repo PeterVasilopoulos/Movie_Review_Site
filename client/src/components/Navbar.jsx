@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAppContext } from '../libs/context'
 
 const Navbar = () => {
     // Setup navigate variable
@@ -24,6 +25,13 @@ const Navbar = () => {
     // Logout button function
     const logout = (e) => {
         e.preventDefault()
+    }
+
+    // Login button function
+    const login = (e) => {
+        e.preventDefault()
+
+        navigate('/')
     }
 
     return (
@@ -74,9 +82,9 @@ const Navbar = () => {
                     {/* Login/Logout */}
                     <div id='navbar-buttons'>
                         <p className='bold navbar-username'>Username</p>
-                        <button className='btn' onClick={logout}>Logout</button>
-                    </div>                </div>
-
+                        <button className='btn' onClick={login}>Login</button>
+                    </div>
+                </div>
             </div>
         </div>
     )
