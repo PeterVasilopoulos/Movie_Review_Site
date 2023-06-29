@@ -465,14 +465,28 @@ body {
 }
 
 .cc-poster {
-  height: 200px;
+  height: 250px;
   border: 2px solid rgb(54, 48, 32);
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.cc-poster:hover {
+  border: 2px solid rgb(31, 149, 90);
 }
 
 #cc-movie-title {
   font-size: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+  color: rgb(54, 48, 32);
+}
+
+#cc-movie-title:hover {
+  text-decoration: underline;
+}
+
+#cc-year-rating {
+  margin-bottom: 6px;
 }
 
 #cc-movie-description {
@@ -520,10 +534,87 @@ body {
 
 #review-movie-info {
   display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.review-poster {
+  height: 250px;
+  border: 2px solid rgb(54, 48, 32);
+  cursor: pointer;
+}
+
+.review-poster:hover {
+  border: 2px solid rgb(31, 149, 90);
+}
+
+#review-movie-right > * {
+  margin-bottom: 6px;
+}
+
+#review-movie-title {
+  font-weight: bold;
+  font-size: 28px;
+  color: rgb(54, 48, 32);
+}
+
+#review-movie-title:hover {
+  text-decoration: underline;
+}
+
+.review-sep {
+  color: rgb(197, 197, 197);
+}
+
+#review-movie-summary {
+  margin-bottom: 20px;
+}
+
+#review-movie-back {
+  padding: 4px 6px;
+  border-radius: 5px;
+  display: inline;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+  color: rgb(31, 149, 90);
+}
+
+#review-movie-back:hover {
+  background-color: rgb(31, 149, 90);
+  color: white;
 }
 
 #review-form {
-  
+  width: 500px;
+  margin: 0 auto;
+}
+
+#review-form label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#review-rating {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  align-items: center;
+}
+
+#review-rating-number {
+  font-weight: bold;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.star {
+  font-size: 40px;
+  color: gold;
+  cursor: pointer;
+  text-shadow: 1px 0 black, 0 1px black, 
+    -1px 0 black, 0 -1px black;
 }
 
 /* -------------------------------------- */

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 const CastAndCrew = () => {
     // Get movie id from parameter
@@ -65,14 +65,28 @@ const CastAndCrew = () => {
                     {/* Movie Info */}
                     <div id='cc-movie-info'>
                         {/* Movie Poster */}
-                        <img
-                            src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
-                            alt="Movie poster"
-                            className='cc-poster' />
+                        <Link to={`/movies/${movieData.id}`}>
+                            <img
+                                src={movieData.poster_path ? `https://image.tmdb.org/t/p/w1280${movieData.poster_path}` : "https://movienewsletters.net/photos/000000h1.jpg"}
+                                alt="Movie poster"
+                                className='cc-poster' />
+                        </Link>
                         <div>
                             {/* Movie Title */}
-                            <p id='cc-movie-title' className='bold '>{movieData.title}</p>
-                            {/* Movie description */}
+                            <p id='cc-movie-title' className='bold '>
+                                <Link to={`/movies/${movieData.id}`}>
+                                    {movieData.title}
+                                </Link>
+                            </p>
+                            {/* Movie Release Year and Average Rating */}
+                            <p id='cc-year-rating'>
+                                {/* Release Year */}
+                                {movieData.release_date ? movieData.release_date.slice(0, 4) : false}
+                                <span className='review-sep'> | </span>
+                                {/* Average Rating */}
+                                ⭐{movieData.vote_average ? movieData.vote_average.toFixed(1) : "n/a"}
+                            </p>
+                            {/* Movie Summary */}
                             <p id='cc-movie-description'>{movieData.overview}</p>
 
                             {/* Back to Movie Button */}
