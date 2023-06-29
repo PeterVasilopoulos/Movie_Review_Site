@@ -10,6 +10,7 @@ import MovieDetails from './components/MovieDetails';
 import CastAndCrew from './components/CastAndCrew';
 import LoginReg from './components/LoginReg';
 import AllUsers from './components/AllUsers';
+import OneUser from './components/OneUser';
 
 function App() {
   // Logged user context variable
@@ -36,6 +37,9 @@ function App() {
 
           {/* All Users Page */}
           <Route path='/users' element={<AllUsers/>}/>
+
+          {/* One User Page */}
+          <Route path='/users/:id' element={<OneUser/>}/>
         </Routes>
 
       </AppContext.Provider>
