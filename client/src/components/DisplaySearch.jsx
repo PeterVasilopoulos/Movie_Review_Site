@@ -204,7 +204,7 @@ const DisplaySearch = () => {
                                             <div>
                                                 {/* Title */}
                                                 <Link className='movie-title' to={`/movies/${movie.id}`}>
-                                                    {movie.title ? movie.title : false}
+                                                    {movie.movieTitle ? movie.movieTitle : false}
                                                 </Link>
                                                 {/* Year, Length, Age Rating, Genre */}
                                                 <p className='movie-details'>

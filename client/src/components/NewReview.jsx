@@ -303,7 +303,7 @@ const NewReview = () => {
                         <div className='block-bottom'>
                             <form>
                                 {/* Title Hidden Input */}
-                                <input type="hidden" value={movieData.title ? movieData.title : "n/a"} />
+                                <input type="hidden" name='title' value={movieData.movieTitle ? movieData.movieTitle : "n/a"} />
                                 {/* Movie ID Hidden Input */}
                                 <input type="hidden" value={movieData.id ? movieData.id : 0} />
                                 {/* Movie Poster Path Hidden Input */}
@@ -311,7 +311,7 @@ const NewReview = () => {
 
                                 {/* Rating */}
                                 <label>Rating: </label>
-                                <input type="hidden" value={starInput}/>
+                                <input type="hidden" name='rating' value={starInput} />
                                 <div id='review-rating'>
                                     <p id='review-rating-number'>{starInput}</p>
                                     <p className='star' onClick={star1}>
@@ -345,6 +345,20 @@ const NewReview = () => {
                                         {stars.star10 ? "★" : "☆"}
                                     </p>
                                 </div>
+
+                                {/* Date Watched */}
+                                <label>Date Watched:</label>
+                                <div id='review-date-watched'>
+                                    <input type="date"/>
+                                </div>
+
+                                {/* Rewatch */}
+                                <label>Watched Before?</label>
+                                <div className='review-radio'>
+                                    <p>Yes</p>
+                                    <input type="radio" />
+                                </div>
+
                             </form>
                         </div>
                     </div>

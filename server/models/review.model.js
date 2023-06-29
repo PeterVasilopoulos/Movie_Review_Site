@@ -2,10 +2,6 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const ReviewSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: [true, "Movie title is required"]
-    },
     body: {
         type: String
     },

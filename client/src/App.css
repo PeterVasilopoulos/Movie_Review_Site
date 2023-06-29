@@ -594,6 +594,11 @@ body {
 #review-form label {
   font-weight: bold;
   font-size: 18px;
+  display: block;
+}
+
+#review-form input {
+  display: inline;
 }
 
 #review-rating {
@@ -615,6 +620,17 @@ body {
   cursor: pointer;
   text-shadow: 1px 0 black, 0 1px black, 
     -1px 0 black, 0 -1px black;
+}
+
+#review-date-watched {
+  margin: 15px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.review-radio {
+  display: flex;
+  gap: 10px;
 }
 
 /* -------------------------------------- */

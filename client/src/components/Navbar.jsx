@@ -26,17 +26,15 @@ const Navbar = () => {
                     setLoggedUser()
                 })
         }
-    }, [loggedOut])
+    }, [])
 
     // Logout button function
     const logout = (e) => {
         e.preventDefault()
 
-        // Swap logged out variable
-        setLoggedOut(!loggedOut)
-
         axios.delete("http://localhost:8000/api/users/logout", {withCredentials: true})
             .then((res) => {
+                setLoggedUser()
                 navigate('/')
             })
     }
