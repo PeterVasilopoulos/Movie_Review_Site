@@ -71,7 +71,7 @@ body {
   color: white;
 }
 
-#navbar-buttons {
+.navbar-buttons {
   display: flex;
   gap: 20px;
   align-items: center;

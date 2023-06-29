@@ -186,6 +186,27 @@ const LoginReg = () => {
                                     <button className='btn'>Login</button>
                                 </div>
                             </form>
+
+                            {/* Registration Errors */}
+                            {
+                                // Checking if registration form errors variable exists
+                                loginFormErrors ?
+                                    <div className='lr-errors'>
+                                        {/* Username */}
+                                        {
+                                            loginFormErrors.username ?
+                                                <p>{loginFormErrors.username.message}</p>
+                                                : false
+                                        }
+                                        {/* Password */}
+                                        {
+                                            loginFormErrors.password ?
+                                                <p>{loginFormErrors.password.message}</p>
+                                                : false
+                                        }
+                                    </div>
+                                    : false
+                            }
                         </div>
                     </div>
                 </div>

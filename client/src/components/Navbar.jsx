@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppContext } from '../libs/context'
+import axios from 'axios'
 
 const Navbar = () => {
+    // Logged in user variable
+    const { loggedUser } = useAppContext()
+
     // Setup navigate variable
     const navigate = useNavigate()
 
@@ -25,6 +29,10 @@ const Navbar = () => {
     // Logout button function
     const logout = (e) => {
         e.preventDefault()
+        axios.delete("http://localhost:8000/api/users/logout", { withCredentials: true })
+            .then((res) => {
+                navigate('/')
+            })
     }
 
     // Login button function
@@ -81,12 +89,27 @@ const Navbar = () => {
 
                     {/* Login/Logout */}
                     <div id='navbar-buttons'>
-                        <p className='bold navbar-username'>Username</p>
-                        <button className='btn' onClick={login}>Login</button>
+                        {
+                            loggedUser ?
+                                <div className='navbar-buttons'>
+                                    {/* Username (only displays if logged in) */}
+                                    <p className='bold navbar-username'>{loggedUser.username}</p>
+
+                                    {/* Logout Button */}
+                                    <button className='btn' onClick={logout}>Logout</button>
+                                </div>
+                                :
+                                <div className='navbar-buttons'>
+                                    {/* Login Button */}
+                                    <button className='btn' onClick={login}>Login</button>
+                                </div>
+                        }
+
+
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
