@@ -30,6 +30,47 @@ body {
   flex: 1;
 }
 
+#home-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#home-logo img {
+  height: 300px;
+}
+
+#home-links {
+  margin: 0 auto;
+  width: 300px;
+  text-align: center;
+}
+
+#home-links-bottom {
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.link-margin {
+  margin-bottom: 10px;
+}
+
+.hl-link {
+  width: 100%;
+  font-weight: bold;
+  color: rgb(31, 149, 90);
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: 0.2s;
+}
+
+.hl-link:hover {
+  color: white;
+  background-color: rgb(31, 149, 90);
+}
+
 /* -------------------------------------- */
 /* Navbar */
 /* -------------------------------------- */
@@ -320,9 +361,14 @@ body {
 
 #md-title-log {
   display: flex;
+  gap: 20px;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-right: 5px;
+}
+
+#md-title-log a {
+  margin-top: 5px;
 }
 
 #md-yrr {
