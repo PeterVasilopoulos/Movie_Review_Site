@@ -15,10 +15,10 @@ const ReviewSchema = new mongoose.Schema({
         type: Date,
         required: [true, "Watch date is required"]
     },
-    // user: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "User"
-    // },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
     rewatch: {
         type: Boolean,
         required: [true, "'Watched before?' selection is required"]

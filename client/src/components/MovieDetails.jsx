@@ -130,7 +130,7 @@ const MovieDetails = () => {
                 axios.get(`http://localhost:8000/api/reviews/movie/${res.data.id}`)
                     .then((reviewsRes) => {
                         //Log data
-                        console.log("Reviews: ", reviewsRes.data.results)
+                        console.log("Reviews: ", reviewsRes)
                         // Set movie reviews variable
                         setMovieReviews(reviewsRes.data.results)
                     })

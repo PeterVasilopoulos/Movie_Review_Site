@@ -37,8 +37,10 @@ UserSchema.pre("validate", function(next) {
         if(this.password !== this.confirmPassword) {
             this.invalidate("confirmPassword", "Passwords must match");
         }
+        next()
+    } else {
+        next()
     }
-    next()
 })
 
 // Hash Password with BCrypt
@@ -49,8 +51,9 @@ UserSchema.pre("save", function(next) {
                 this.password = hash
                 next()
             })
+    } else {
+        next()
     }
-    next()
 })
 
 // Statistic Method To Handle Login Validations

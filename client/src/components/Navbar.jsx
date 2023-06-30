@@ -5,18 +5,15 @@ import axios from 'axios'
 
 const Navbar = () => {
     // Logged in user variable
-    const {loggedUser, setLoggedUser} = useAppContext()
+    const { loggedUser, setLoggedUser } = useAppContext()
 
     // Setup navigate variable
     const navigate = useNavigate()
 
-    // Logout check variable
-    const [loggedOut, setLoggedOut] = useState(false)
-
     // Check if user is logged in
     useEffect(() => {
-        if(!loggedUser) {
-            axios.get("http://localhost:8000/api/users/loggedin", {withCredentials: true})
+        if (!loggedUser) {
+            axios.get("http://localhost:8000/api/users/loggedin", { withCredentials: true })
                 .then((res) => {
                     // User is logged in, set logged user variable
                     setLoggedUser(res.data)
@@ -32,7 +29,7 @@ const Navbar = () => {
     const logout = (e) => {
         e.preventDefault()
 
-        axios.delete("http://localhost:8000/api/users/logout", {withCredentials: true})
+        axios.delete("http://localhost:8000/api/users/logout", { withCredentials: true })
             .then((res) => {
                 setLoggedUser()
                 navigate('/')
@@ -74,21 +71,32 @@ const Navbar = () => {
                             Users
                         </Link>
 
-                        <span> | </span>
 
                         {/* My Reviews */}
-                        {/* CHANGE LINK TO INCLUDE USER'S ID */}
-                        <Link to="/users/" className='nb-menu-item'>
-                            My Reviews
-                        </Link>
+                        {
+                            loggedUser ?
+                                <div>
+                                    <span> | </span>
+                                    <Link to={`/users/${loggedUser._id}`} className='nb-menu-item'>
+                                        My Reviews
+                                    </Link>
+                                </div>
+                                : false
+                        }
 
-                        <span> | </span>
 
                         {/* Watchlist */}
                         {/* CHANGE LINK TO INCLUDE USER'S ID */}
-                        <Link to="/watchlist/" className='nb-menu-item'>
-                            Watchlist
-                        </Link>
+                        {
+                            loggedUser ?
+                                <div>
+                                    <span> | </span>
+                                    <Link to="/watchlist/" className='nb-menu-item'>
+                                        Watchlist
+                                    </Link>
+                                </div>
+                                : false
+                        }
                     </div>
 
                     {/* Login/Logout */}
