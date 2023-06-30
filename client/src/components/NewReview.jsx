@@ -70,7 +70,6 @@ const NewReview = () => {
     // Review Form Change Function
     const revChange = (e) => {
         setReviewFormData({ ...reviewFormData, [e.target.name]: e.target.value })
-        console.log(reviewFormData)
     }
 
     // Rewatch Functions

@@ -36,7 +36,6 @@ const LoginReg = () => {
                 setRegFormErrors({})
                 // Set logged user context variable
                 setLoggedUser(res.data)
-                console.log(res.data)
                 // Navigate to user's page
                 navigate(`/users/${res.data._id}`)
             })
@@ -59,7 +58,6 @@ const LoginReg = () => {
                 setLoginFormErrors({})
                 // Set logged user context variable
                 setLoggedUser(res.data)
-                console.log(res)
                 // Navigate to user's page
                 navigate(`/`)
             })
