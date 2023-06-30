@@ -33,19 +33,24 @@ UserSchema.virtual("confirmPassword")
 
 // Check if Password and Confirm Password are the Same
 UserSchema.pre("validate", function(next) {
-    if(this.password !== this.confirmPassword) {
-        this.invalidate("confirmPassword", "Passwords must match");
+    if(this.confirmPassword) {
+        if(this.password !== this.confirmPassword) {
+            this.invalidate("confirmPassword", "Passwords must match");
+        }
     }
     next()
 })
 
 // Hash Password with BCrypt
 UserSchema.pre("save", function(next) {
-    bcrypt.hash(this.password, 10)
-        .then(hash => {
-            this.password = hash
-            next()
-        })
+    if(this.confirmPassword) {
+        bcrypt.hash(this.password, 10)
+            .then(hash => {
+                this.password = hash
+                next()
+            })
+    }
+    next()
 })
 
 // Statistic Method To Handle Login Validations
