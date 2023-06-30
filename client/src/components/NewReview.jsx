@@ -13,16 +13,18 @@ const NewReview = () => {
     // Get logged user 
     const { loggedUser } = useAppContext()
 
+    // Get today's date
+    const today = new Date().toISOString().slice(0, 10)
+
     // If user isn't logged in, reroute to home page
-    if (!loggedUser) {
-        navigate('/')
-    }
+    useEffect(() => {
+        if (!loggedUser) {
+            navigate('/login')
+        }
+    }, [])
 
     // Variable to hold the movie information
     const [movieData, setMovieData] = useState({})
-
-    // Create review form errors variable
-    const [reviewFormErrors, setReviewFormErrors] = useState({})
 
     // Variable to hold the review form data
     const [reviewFormData, setReviewFormData] = useState({
@@ -31,7 +33,7 @@ const NewReview = () => {
         moviePosterPath: "",
         user: loggedUser ? loggedUser._id : null,
         rating: 1,
-        date: null,
+        date: today,
         rewatch: false,
         body: ""
     })
@@ -53,7 +55,7 @@ const NewReview = () => {
                 setMovieData(res.data)
                 // Set movie title, id, poster path
                 setReviewFormData({
-                    ...reviewFormData, 
+                    ...reviewFormData,
                     movieTitle: res.data.title,
                     movieId: res.data.id,
                     moviePosterPath: res.data.poster_path
@@ -85,7 +87,7 @@ const NewReview = () => {
     const submitReview = (e) => {
         e.preventDefault()
 
-        axios.post(`http://localhost:8000/api/reviews/new/${loggedUser._id}`, reviewFormData, {withCredentials: true})
+        axios.post(`http://localhost:8000/api/reviews/new/${loggedUser._id}`, reviewFormData, { withCredentials: true })
             .then((res) => {
                 navigate(`/movies/${movieData.id}`)
             })
@@ -102,220 +104,40 @@ const NewReview = () => {
 
     // Star Hashmap
     const [stars, setStars] = useState({
-        star1: true,
-        star2: false,
-        star3: false,
-        star4: false,
-        star5: false,
-        star6: false,
-        star7: false,
-        star8: false,
-        star9: false,
-        star10: false,
+        1: true,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        7: false,
+        8: false,
+        9: false,
+        10: false,
     })
 
     // Star Input Variable
     const [starInput, setStarInput] = useState(1)
 
-    // Star 1 Function
-    const star1 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: false,
-            star3: false,
-            star4: false,
-            star5: false,
-            star6: false,
-            star7: false,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(1)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 1 })
-    }
-    // Star 2 Function
-    const star2 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: false,
-            star4: false,
-            star5: false,
-            star6: false,
-            star7: false,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(2)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 2 })
-    }
-    // Star 3 Function
-    const star3 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: false,
-            star5: false,
-            star6: false,
-            star7: false,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(3)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 3 })
-    }
-    // Star 4 Function
-    const star4 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: false,
-            star6: false,
-            star7: false,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(4)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 4 })
-    }
-    // Star 5 Function
-    const star5 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: true,
-            star6: false,
-            star7: false,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(5)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 5 })
-    }
-    // Star 6 Function
-    const star6 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: true,
-            star6: true,
-            star7: false,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(6)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 6 })
-    }
-    // Star 7 Function
-    const star7 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: true,
-            star6: true,
-            star7: true,
-            star8: false,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(7)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 7 })
-    }
-    // Star 8 Function
-    const star8 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: true,
-            star6: true,
-            star7: true,
-            star8: true,
-            star9: false,
-            star10: false
-        })
-        // Set star input
-        setStarInput(8)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 8 })
-    }
-    // Star 9 Function
-    const star9 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: true,
-            star6: true,
-            star7: true,
-            star8: true,
-            star9: true,
-            star10: false
-        })
-        // Set star input
-        setStarInput(9)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 9 })
-    }
-    // Star 10 Function
-    const star10 = () => {
-        setStars({
-            ...stars,
-            star1: true,
-            star2: true,
-            star3: true,
-            star4: true,
-            star5: true,
-            star6: true,
-            star7: true,
-            star8: true,
-            star9: true,
-            star10: true
-        })
-        // Set star input
-        setStarInput(10)
-        // Set form data rating value
-        setReviewFormData({ ...reviewFormData, rating: 10 })
+    // Star Update Function
+    const starUpdate = (starNum) => {
+        // Create a temp variable to hold the key values
+        let tempStars = {}
+
+        // Loop through all stars and change boolean values
+        for (let i = 1; i <= starNum; i++) {
+            tempStars = {...tempStars, [i]: true}
+        }
+        for (let i = 10; i > starNum; i--) {
+            tempStars = {...tempStars, [i]: false}
+        }
+
+        // Set stars hashmap
+        setStars(tempStars)
+        // Set star input variable
+        setStarInput(starNum)
+        // Set form data rating variable
+        setReviewFormData({ ...reviewFormData, rating: starNum })
     }
 
     return (
@@ -409,35 +231,35 @@ const NewReview = () => {
                                     <label>Rating: </label>
                                     <div id='review-rating'>
                                         <p id='review-rating-number'>{starInput}</p>
-                                        <p className='star' onClick={star1}>
-                                            {stars.star1 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(1)}>
+                                            {stars[1] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star2}>
-                                            {stars.star2 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(2)}>
+                                            {stars[2] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star3}>
-                                            {stars.star3 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(3)}>
+                                            {stars[3] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star4}>
-                                            {stars.star4 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(4)}>
+                                            {stars[4] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star5}>
-                                            {stars.star5 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(5)}>
+                                            {stars[5] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star6}>
-                                            {stars.star6 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(6)}>
+                                            {stars[6] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star7}>
-                                            {stars.star7 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(7)}>
+                                            {stars[7] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star8}>
-                                            {stars.star8 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(8)}>
+                                            {stars[8] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star9}>
-                                            {stars.star9 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(9)}>
+                                            {stars[9] ? "★" : "☆"}
                                         </p>
-                                        <p className='star' onClick={star10}>
-                                            {stars.star10 ? "★" : "☆"}
+                                        <p className='star' onClick={() => starUpdate(10)}>
+                                            {stars[10] ? "★" : "☆"}
                                         </p>
                                     </div>
                                 </div>
@@ -446,7 +268,7 @@ const NewReview = () => {
                                 <div className='review-margin review-bot-border'>
                                     <label>Date Watched:</label>
                                     <div id='review-date-watched' className='review-margin'>
-                                        <input type="date" name='date' onChange={revChange} />
+                                        <input type="date" name='date' onChange={revChange} defaultValue={today} />
                                     </div>
                                 </div>
 
@@ -490,7 +312,7 @@ const NewReview = () => {
 
                                 {/* Errors */}
                                 <div>
-                                    
+
                                 </div>
 
                             </form>

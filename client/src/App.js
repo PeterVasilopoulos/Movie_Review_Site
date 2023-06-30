@@ -12,6 +12,7 @@ import LoginReg from './components/LoginReg';
 import AllUsers from './components/AllUsers';
 import OneUser from './components/OneUser';
 import NewReview from './components/NewReview';
+import Homepage from './components/Homepage';
 
 function App() {
   // Logged user context variable
@@ -19,13 +20,16 @@ function App() {
 
   return (
     <div className="App">
-      <AppContext.Provider value={{loggedUser, setLoggedUser}}>
+      <AppContext.Provider value={{ loggedUser, setLoggedUser }}>
 
         <Navbar />
 
         <Routes>
           {/* Home Page */}
-          <Route path='/' element={<LoginReg/>}/>
+          <Route path='/' element={<Homepage />} />
+
+          {/* Login Page */}
+          <Route path='/login' element={<LoginReg />} />
 
           {/* Movie Search Page */}
           <Route path='/movies' element={<DisplaySearch />} />
@@ -37,13 +41,13 @@ function App() {
           <Route path='/movies/cast&crew/:id' element={<CastAndCrew />} />
 
           {/* New Review Page */}
-          <Route path='/movies/:id/review' element={<NewReview/>}/>
+          <Route path='/movies/:id/review' element={<NewReview />} />
 
           {/* All Users Page */}
-          <Route path='/users' element={<AllUsers/>}/>
+          <Route path='/users' element={<AllUsers />} />
 
           {/* One User Page */}
-          <Route path='/users/:id' element={<OneUser/>}/>
+          <Route path='/users/:id' element={<OneUser />} />
         </Routes>
 
       </AppContext.Provider>

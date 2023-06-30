@@ -23,6 +23,14 @@ body {
 }
 
 /* -------------------------------------- */
+/* Homepage */
+/* -------------------------------------- */
+
+#homepage {
+  flex: 1;
+}
+
+/* -------------------------------------- */
 /* Navbar */
 /* -------------------------------------- */
 
@@ -791,6 +799,10 @@ body {
 .ou-one-review:last-of-type {
   border-bottom: none;
   padding: 15px 0 0 0;
+}
+
+.ou-one-review:only-of-type {
+  padding: 0;
 }
 
 .ou-review-top {

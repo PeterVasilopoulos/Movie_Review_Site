@@ -32,7 +32,7 @@ const Navbar = () => {
         axios.delete("http://localhost:8000/api/users/logout", { withCredentials: true })
             .then((res) => {
                 setLoggedUser()
-                navigate('/')
+                navigate('/login')
             })
     }
 
@@ -40,7 +40,7 @@ const Navbar = () => {
     const login = (e) => {
         e.preventDefault()
 
-        navigate('/')
+        navigate('/login')
     }
 
     return (
@@ -59,6 +59,13 @@ const Navbar = () => {
                 <div id='navbar-bottom'>
                     {/* Movie Search Button */}
                     <div id='navbar-menu'>
+                        {/* Homepage */}
+                        <Link to="/" className='nb-menu-item'>
+                            Homepage
+                        </Link>
+
+                        <span> | </span>
+
                         {/* Movies Search */}
                         <Link to="/movies" className='nb-menu-item'>
                             Movies

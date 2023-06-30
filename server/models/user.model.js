@@ -28,8 +28,6 @@ const UserSchema = new mongoose.Schema({
 
 // Confirm Password Virtual Variable
 UserSchema.virtual("confirmPassword")
-    .get(() => this._confirmPassword)
-    .set(value => this._confirmPassword = value)
 
 // Check if Password and Confirm Password are the Same
 UserSchema.pre("validate", function(next) {

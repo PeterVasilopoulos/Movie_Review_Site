@@ -32,8 +32,11 @@ const LoginReg = () => {
         // Axios post reqeust
         axios.post('http://localhost:8000/api/users/new', regFormData, { withCredentials: true })
             .then(res => {
+                // Clear the registration form errors
+                setRegFormErrors({})
                 // Set logged user context variable
                 setLoggedUser(res.data)
+                console.log(res.data)
                 // Navigate to user's page
                 navigate(`/users/${res.data._id}`)
             })
@@ -52,10 +55,13 @@ const LoginReg = () => {
         // Axios post reqeust
         axios.post('http://localhost:8000/api/users/login', loginFormData, { withCredentials: true })
             .then(res => {
+                // Clear the login form errors
+                setLoginFormErrors({})
                 // Set logged user context variable
                 setLoggedUser(res.data)
+                console.log(res)
                 // Navigate to user's page
-                navigate(`/movies`)
+                navigate(`/`)
             })
             .catch(err => {
                 // Set errors if there are any
