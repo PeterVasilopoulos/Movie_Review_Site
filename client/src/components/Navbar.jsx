@@ -32,7 +32,7 @@ const Navbar = () => {
         axios.delete("http://localhost:8000/api/users/logout", { withCredentials: true })
             .then((res) => {
                 setLoggedUser()
-                navigate('/login')
+                navigate('/')
             })
     }
 
