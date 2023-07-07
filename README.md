@@ -3,6 +3,7 @@
 <div align="center">
 
   <img src="https://i.imgur.com/uMHRZur.png" width="63%">
+  More screenshots below
   
 </div>
 
